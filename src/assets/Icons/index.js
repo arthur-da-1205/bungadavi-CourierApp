@@ -7,6 +7,8 @@ import IcSummaryOff from './SummaryOff.svg';
 import IcSummaryOn from './SummaryOn.svg';
 import IcProfileOff from './ProfileOff.svg';
 import IcProfileOn from './ProfileOn.svg';
+import icArrowBack from './arrow_back.png';
+import icArrowRight from './arrow_right.png';
 
 export {
   icAssign,
@@ -18,4 +20,6 @@ export {
   IcProfileOn,
   IcSummaryOff,
   IcSummaryOn,
+  icArrowBack,
+  icArrowRight,
 };

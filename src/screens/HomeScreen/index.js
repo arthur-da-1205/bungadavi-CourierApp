@@ -1,9 +1,9 @@
 import React from 'react';
 import {Dimensions, Image, Text, TouchableOpacity, View} from 'react-native';
-import {icAssign, IlHomepage} from '../../assets';
+import {icAssign, icDeliver, icDone, IlHomepage} from '../../assets';
 import {Space} from '../../components';
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
   return (
     <View>
       <View
@@ -64,7 +64,8 @@ const HomeScreen = () => {
               alignItems: 'center',
               paddingVertical: 12,
               paddingLeft: 32,
-            }}>
+            }}
+            onPress={() => navigation.navigate('AssignOrderScreen')}>
             <Image source={icAssign} />
             <Text
               style={{
@@ -87,8 +88,9 @@ const HomeScreen = () => {
               alignItems: 'center',
               paddingVertical: 12,
               paddingLeft: 32,
-            }}>
-            <Image source={icAssign} />
+            }}
+            onPress={() => navigation.navigate('OnDeliveryScreen')}>
+            <Image source={icDeliver} />
             <Text
               style={{
                 fontFamily: 'Poppins-Regular',
@@ -97,7 +99,7 @@ const HomeScreen = () => {
                 fontWeight: 'bold',
                 marginLeft: 50,
               }}>
-              New Assign
+              On Delivery
             </Text>
           </TouchableOpacity>
           <Space height={20} />
@@ -109,8 +111,9 @@ const HomeScreen = () => {
               alignItems: 'center',
               paddingVertical: 12,
               paddingLeft: 32,
-            }}>
-            <Image source={icAssign} />
+            }}
+            onPress={() => navigation.navigate('DoneScreen')}>
+            <Image source={icDone} />
             <Text
               style={{
                 fontFamily: 'Poppins-Regular',
@@ -119,7 +122,7 @@ const HomeScreen = () => {
                 fontWeight: 'bold',
                 marginLeft: 50,
               }}>
-              New Assign
+              Done
             </Text>
           </TouchableOpacity>
         </View>

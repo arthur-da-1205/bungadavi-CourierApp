@@ -4,10 +4,13 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import {BottomNavigator} from '../components';
 import {
+  AssignOrderScreen,
   HomeScreen,
   LoginScreen,
   ProfileScreen,
   SummaryScreen,
+  OnDeliveryScreen,
+  DoneScreen,
 } from '../screens';
 
 const Tab = createBottomTabNavigator();
@@ -46,6 +49,21 @@ const Router = () => {
       <Stack.Screen
         name="MainApp"
         component={MainApp}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="AssignOrderScreen"
+        component={AssignOrderScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="OnDeliveryScreen"
+        component={OnDeliveryScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="DoneScreen"
+        component={DoneScreen}
         options={{headerShown: false}}
       />
     </Stack.Navigator>
