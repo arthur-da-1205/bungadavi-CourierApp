@@ -1,7 +1,7 @@
 export const dummyCourierTask = [
   {
     id: 1,
-    orderID: 'SBDCxxxxxxx',
+    orderID: 'SBDxxxxxxx',
     address: 'Jl. Jambu V/16 Perumnas Kamal',
     date: '22 September 2021',
     timeslot: '09.00 AM - 12.00 AM',
@@ -9,15 +9,15 @@ export const dummyCourierTask = [
   },
   {
     id: 2,
-    orderID: 'SBDCxxxxxxx',
+    orderID: 'SBDxxxxxxx',
     address: 'Jl. Raya Jokotole no 39',
     date: '22 September 2021',
     timeslot: '09.00 AM - 12.00 AM',
-    statusOrder: 'assigning',
+    statusOrder: 'accepted',
   },
   {
     id: 3,
-    orderID: 'SBDCxxxxxxx',
+    orderID: 'SBDxxxxxxx',
     address: 'Jl. Barak Leke Kampung Dalam, Kamal',
     date: '22 September 2021',
     timeslot: '09.00 AM - 12.00 AM',
@@ -25,7 +25,7 @@ export const dummyCourierTask = [
   },
   {
     id: 4,
-    orderID: 'SBDCxxxxxxx',
+    orderID: 'SBDxxxxxxx',
     address: 'Jl. Pemuda Kaffa, Bangkalan Kota',
     date: '22 September 2021',
     timeslot: '09.00 AM - 12.00 AM',
@@ -33,10 +33,10 @@ export const dummyCourierTask = [
   },
   {
     id: 5,
-    orderID: 'SBDCxxxxxxx',
+    orderID: 'SBDxxxxxxx',
     address: 'Jl. Jeruk IX/16 Perumnas Kamal',
     date: '22 September 2021',
     timeslot: '09.00 AM - 12.00 AM',
-    statusOrder: 'assigning',
+    statusOrder: 'on-delivery',
   },
 ];

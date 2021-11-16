@@ -1,5 +1,7 @@
 import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import PropTypes from 'prop-types';
+
 import {icArrowRight} from '../../../assets';
 
 const OrderCard = ({
@@ -27,6 +29,21 @@ const OrderCard = ({
       </View>
     </TouchableOpacity>
   );
+};
+
+OrderCard.propTypes = {
+  orderInv: PropTypes.string.isRequired,
+  address: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired,
+  timeSlot: PropTypes.string.isRequired,
+  statusTask: PropTypes.oneOf([
+    'assigning',
+    'accepted',
+    'rejected',
+    'on-delivery',
+    'done',
+    'returned',
+  ]).isRequired,
 };
 
 const styles = StyleSheet.create({

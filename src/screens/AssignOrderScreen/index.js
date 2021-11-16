@@ -5,22 +5,39 @@ import {productDummy} from '../../assets';
 import {Header, OrderCard} from '../../components';
 import {dummyCourierTask} from '../../data/dummy';
 
-const data = dummyCourierTask;
+const dummyData = dummyCourierTask;
 
-console.log(data);
+// console.log(data);
 
 const AssignOrderScreen = () => {
   return (
-    <SafeAreaView style={{paddingBottom: 30}}>
+    <SafeAreaView style={styles.contentContainer}>
       <Header headerTitle="Your Task" headerSubtitle="New task assign" />
       <ScrollView style={styles.content}>
-        <OrderCard
+        {dummyData.map((item, index) => {
+          if (item.statusOrder === 'assigning') {
+            return (
+              <OrderCard
+                key={index}
+                productImg={productDummy}
+                orderInv={item.orderID}
+                address={item.address}
+                date={item.date}
+                timeSlot={item.timeslot}
+                statusTask={item.statusOrder}
+              />
+            );
+          }
+          return;
+        })}
+
+        {/* <OrderCard
           productImg={productDummy}
           orderInv="SBDC1205940004C"
           address="Jl. Jambu V no 16 Perumnas Kamal"
           date="19 November 2021"
           timeSlot="09.00 AM - 12.00 AM"
-          statusTask="Assigning"
+          statusTask="assigning"
         />
         <OrderCard
           productImg={productDummy}
@@ -28,7 +45,7 @@ const AssignOrderScreen = () => {
           address="Jl. Jambu V no 16 Perumnas Kamal"
           date="19 November 2021"
           timeSlot="09.00 AM - 12.00 AM"
-          statusTask="Assigning"
+          statusTask="assigning"
         />
         <OrderCard
           productImg={productDummy}
@@ -36,7 +53,7 @@ const AssignOrderScreen = () => {
           address="Jl. Jambu V no 16 Perumnas Kamal"
           date="19 November 2021"
           timeSlot="09.00 AM - 12.00 AM"
-          statusTask="Assigning"
+          statusTask="accepted"
         />
         <OrderCard
           productImg={productDummy}
@@ -44,16 +61,8 @@ const AssignOrderScreen = () => {
           address="Jl. Jambu V no 16 Perumnas Kamal"
           date="19 November 2021"
           timeSlot="09.00 AM - 12.00 AM"
-          statusTask="Accepted"
-        />
-        <OrderCard
-          productImg={productDummy}
-          orderInv="SBDC1205940004C"
-          address="Jl. Jambu V no 16 Perumnas Kamal"
-          date="19 November 2021"
-          timeSlot="09.00 AM - 12.00 AM"
-          statusTask="Accepted"
-        />
+          statusTask="accepted"
+        /> */}
       </ScrollView>
     </SafeAreaView>
   );
@@ -63,4 +72,5 @@ export default AssignOrderScreen;
 
 const styles = StyleSheet.create({
   content: {paddingHorizontal: 8, paddingVertical: 20},
+  contentContainer: {paddingBottom: 30},
 });
