@@ -3,6 +3,11 @@ import {ScrollView, StyleSheet} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {productDummy} from '../../assets';
 import {Header, OrderCard} from '../../components';
+import {dummyCourierTask} from '../../data/dummy';
+
+const data = dummyCourierTask;
+
+console.log(data);
 
 const AssignOrderScreen = () => {
   return (
