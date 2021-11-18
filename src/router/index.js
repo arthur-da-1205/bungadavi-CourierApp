@@ -12,6 +12,7 @@ import {
   OnDeliveryScreen,
   DoneScreen,
   SplashScreen,
+  DetailScreen,
 } from '../screens';
 
 const Tab = createBottomTabNavigator();
@@ -21,7 +22,7 @@ const MainApp = () => {
   return (
     <Tab.Navigator tabBar={props => <BottomNavigator {...props} />}>
       <Tab.Screen
-        name="Home"
+        name="HomeScreen"
         component={HomeScreen}
         options={{headerShown: false}}
       />
@@ -70,6 +71,11 @@ const Router = () => {
       <Stack.Screen
         name="DoneScreen"
         component={DoneScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="DetailScreen"
+        component={DetailScreen}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

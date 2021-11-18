@@ -1,3 +1,4 @@
+import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
 import {ScrollView, StyleSheet} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -9,7 +10,7 @@ const dummyData = dummyCourierTask;
 
 // console.log(data);
 
-const AssignOrderScreen = () => {
+const AssignOrderScreen = ({navigation}) => {
   return (
     <SafeAreaView style={styles.contentContainer}>
       <Header headerTitle="Your Task" headerSubtitle="New task assign" />
@@ -25,6 +26,7 @@ const AssignOrderScreen = () => {
                 date={item.date}
                 timeSlot={item.timeslot}
                 statusTask={item.statusOrder}
+                onDetail={() => navigation.navigate('DetailScreen')}
               />
             );
           }

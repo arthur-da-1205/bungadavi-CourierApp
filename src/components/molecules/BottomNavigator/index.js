@@ -64,8 +64,7 @@ const BottomNavigator = ({state, descriptors, navigation}) => {
             accessibilityLabel={options.tabBarAccessibilityLabel}
             testID={options.tabBarTestID}
             onPress={onPress}
-            onLongPress={onLongPress}
-            style={{backgroundColor: '#FF268E'}}>
+            onLongPress={onLongPress}>
             <Icon label={label} focus={isFocused} />
           </TouchableOpacity>
         );

@@ -116,7 +116,7 @@ const ProfileScreen = () => {
         </View>
       </View>
       <View style={{flex: 1}} />
-      <Button labelBtn="Logout" />
+      <Button labelBtn="Logout" btnColor="#F6BFBF" />
     </View>
   );
 };

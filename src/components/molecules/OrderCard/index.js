@@ -11,9 +11,10 @@ const OrderCard = ({
   timeSlot,
   statusTask,
   productImg,
+  onDetail,
 }) => {
   return (
-    <TouchableOpacity style={styles.card}>
+    <TouchableOpacity style={styles.card} onPress={onDetail}>
       <Image source={productImg} />
       <View style={styles.textContainer}>
         <Text style={styles.invText}>{orderInv}</Text>

@@ -6,7 +6,7 @@ import {Logo} from '../../assets';
 const SplashScreen = ({navigation}) => {
   useEffect(() => {
     setTimeout(() => {
-      navigation.reset({index: 0, routes: [{name: 'MainApp'}]});
+      navigation.reset({index: 0, routes: [{name: 'LoginScreen'}]});
     }, 2000);
   }, [navigation]);
 
