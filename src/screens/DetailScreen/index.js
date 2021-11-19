@@ -1,5 +1,5 @@
 import React from 'react';
-import {ScrollView, View} from 'react-native';
+import {ScrollView, StyleSheet, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {
   Button,
@@ -13,7 +13,7 @@ import {
 
 const DetailScreen = () => {
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={styles.mainContainer}>
       <Header headerTitle="Detail" headerSubtitle="Your task detail" />
       <Space height={19} />
       <ScrollView>
@@ -38,7 +38,7 @@ const DetailScreen = () => {
         <Space height={16} />
         <MessageDetailSection />
         <Space height={26} />
-        <View style={{paddingHorizontal: 24, paddingBottom: 10}}>
+        <View style={styles.btnContainer}>
           <Button labelBtn="Accept" onPress={() => {}} btnColor="#21CC9E" />
           <Space height={8} />
           <Button labelBtn="Reject" onPress={() => {}} btnColor="#B4B3BB" />
@@ -49,3 +49,8 @@ const DetailScreen = () => {
 };
 
 export default DetailScreen;
+
+const styles = StyleSheet.create({
+  mainContainer: {flex: 1},
+  btnContainer: {paddingHorizontal: 24, paddingBottom: 10},
+});

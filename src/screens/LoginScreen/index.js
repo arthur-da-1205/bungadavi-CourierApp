@@ -13,8 +13,9 @@ import {useForm} from '../../utils';
 
 const LoginScreen = ({navigation}) => {
   const [form, setForm] = useForm({
-    username: '',
+    email: '',
     password: '',
+    expiredToken: '24h',
   });
 
   const handleSignin = () => {
@@ -36,8 +37,8 @@ const LoginScreen = ({navigation}) => {
         <InputField
           label="Email Address"
           placeholder="Your email"
-          value={form.username}
-          onChangeText={value => setForm('username', value)}
+          value={form.email}
+          onChangeText={value => setForm('email', value)}
         />
         <Space height={50} />
         <InputField

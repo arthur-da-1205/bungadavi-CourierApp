@@ -1,19 +1,11 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {InfoList} from '../../atoms';
 
 const RecepientDetailSection = ({title, name, phone, address, email, city}) => {
   return (
-    <View style={{paddingHorizontal: 24, backgroundColor: '#FFFF'}}>
-      <Text
-        style={{
-          fontFamily: 'Poppins-Regular',
-          fontSize: 14,
-          marginBottom: 4,
-          color: '#000',
-        }}>
-        {title}
-      </Text>
+    <View style={styles.container}>
+      <Text style={styles.titleStyle}>{title}</Text>
       <InfoList label="Name" labelValue={name} />
       <InfoList label="Phone no." labelValue={phone} />
       <InfoList label="Address" labelValue={address} />
@@ -24,3 +16,13 @@ const RecepientDetailSection = ({title, name, phone, address, email, city}) => {
 };
 
 export default RecepientDetailSection;
+
+const styles = StyleSheet.create({
+  container: {paddingHorizontal: 24, backgroundColor: '#FFFF'},
+  titleStyle: {
+    fontFamily: 'Poppins-Regular',
+    fontSize: 14,
+    marginBottom: 4,
+    color: '#000',
+  },
+});

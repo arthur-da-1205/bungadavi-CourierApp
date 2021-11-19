@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {InfoList} from '../../atoms';
 
 const DetailTransactionSection = ({
@@ -11,16 +11,8 @@ const DetailTransactionSection = ({
   to,
 }) => {
   return (
-    <View style={{paddingHorizontal: 24, backgroundColor: '#FFFF'}}>
-      <Text
-        style={{
-          fontFamily: 'Poppins-Regular',
-          fontSize: 14,
-          marginBottom: 4,
-          color: '#000',
-        }}>
-        {title}
-      </Text>
+    <View style={styles.container}>
+      <Text style={styles.titleStyle}>{title}</Text>
       <InfoList label="Invoice" labelValue={invoice} />
       <InfoList label="Timeslot" labelValue={timeslot} />
       <InfoList label="Date" labelValue={date} />
@@ -31,3 +23,13 @@ const DetailTransactionSection = ({
 };
 
 export default DetailTransactionSection;
+
+const styles = StyleSheet.create({
+  container: {paddingHorizontal: 24, backgroundColor: '#FFFF'},
+  titleStyle: {
+    fontFamily: 'Poppins-Regular',
+    fontSize: 14,
+    marginBottom: 4,
+    color: '#000',
+  },
+});
