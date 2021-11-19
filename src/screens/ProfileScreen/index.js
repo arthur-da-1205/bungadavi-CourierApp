@@ -1,6 +1,6 @@
 import React from 'react';
 import {Image, Text, View} from 'react-native';
-import {IcProfileOff, IcProfileOn, profileImage} from '../../assets';
+import {IcProfileOff, profileImage} from '../../assets';
 import {Button, Space} from '../../components';
 
 const ProfileScreen = () => {

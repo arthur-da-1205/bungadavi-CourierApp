@@ -9,8 +9,18 @@ import {
 
 import {Line, Logo} from '../../assets';
 import {Button, InputField, Space} from '../../components';
+import {useForm} from '../../utils';
 
 const LoginScreen = ({navigation}) => {
+  const [form, setForm] = useForm({
+    username: '',
+    password: '',
+  });
+
+  const handleSignin = () => {
+    console.log(form);
+  };
+
   return (
     <SafeAreaView style={styles.mainContainer}>
       <View style={styles.pageContainer}>
@@ -23,16 +33,31 @@ const LoginScreen = ({navigation}) => {
       </View>
       <Space height={40} />
       <View>
-        <InputField label="Email Address" />
+        <InputField
+          label="Email Address"
+          placeholder="Your email"
+          value={form.username}
+          onChangeText={value => setForm('username', value)}
+        />
         <Space height={50} />
-        <InputField label="Password" />
+        <InputField
+          label="Password"
+          placeholder="Your password"
+          value={form.password}
+          onChangeText={value => setForm('password', value)}
+          secureTextEntry
+        />
         <Space height={5} />
         <TouchableOpacity>
           <Text style={styles.forgotPass}>Forgot your password?</Text>
         </TouchableOpacity>
       </View>
       <Space height={90} />
-      <Button labelBtn="Login" onPress={() => navigation.replace('MainApp')} />
+      <Button
+        labelBtn="Login"
+        // onPress={() => navigation.replace('MainApp')}
+        onPress={handleSignin}
+      />
       <View style={styles.space} />
       <View style={styles.versionContainer}>
         <Text style={styles.versionText}>Bungadavi Mobile v.2.0</Text>
