@@ -2,11 +2,18 @@ import React, {useEffect} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {Space} from '../../components';
 import {Logo} from '../../assets';
+import {getData} from '../../utils/storage';
 
 const SplashScreen = ({navigation}) => {
   useEffect(() => {
     setTimeout(() => {
-      navigation.reset({index: 0, routes: [{name: 'LoginScreen'}]});
+      getData('TOKEN').then(res => {
+        if (res) {
+          navigation.reset({index: 0, routes: [{name: 'MainApp'}]});
+        } else {
+          navigation.replace('LoginScreen');
+        }
+      });
     }, 2000);
   }, [navigation]);
 

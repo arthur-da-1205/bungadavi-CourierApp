@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -6,20 +6,27 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import {useDispatch} from 'react-redux';
 
 import {Line, Logo} from '../../assets';
 import {Button, InputField, Space} from '../../components';
+import {signInAction} from '../../redux/action';
 import {useForm} from '../../utils';
 
 const LoginScreen = ({navigation}) => {
   const [form, setForm] = useForm({
-    email: '',
+    username: '',
     password: '',
     expiredToken: '24h',
   });
 
+  const dispatch = useDispatch();
+
+  useEffect(() => {});
+
   const handleSignin = () => {
     console.log(form);
+    dispatch(signInAction(form, navigation));
   };
 
   return (
@@ -35,10 +42,10 @@ const LoginScreen = ({navigation}) => {
       <Space height={40} />
       <View>
         <InputField
-          label="Email Address"
-          placeholder="Your email"
-          value={form.email}
-          onChangeText={value => setForm('email', value)}
+          label="Username"
+          placeholder="Your username"
+          value={form.username}
+          onChangeText={value => setForm('username', value)}
         />
         <Space height={50} />
         <InputField

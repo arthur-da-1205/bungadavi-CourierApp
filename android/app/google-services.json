@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "777092189245",
+    "project_id": "bdcourier-rn",
+    "storage_bucket": "bdcourier-rn.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:777092189245:android:052f12219b0ae3e1ffae54",
+        "android_client_info": {
+          "package_name": "com.bdcourierapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "777092189245-9npapid4n98sge2vp6f7eqhb7gfr4634.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBK5DkZZ5xdPOgyXP46iaoO8h_LGw4f0ec"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "777092189245-9npapid4n98sge2vp6f7eqhb7gfr4634.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

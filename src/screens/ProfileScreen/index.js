@@ -1,124 +1,123 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React from 'react';
-import {Image, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, View} from 'react-native';
 import {IcProfileOff, profileImage} from '../../assets';
 import {Button, Space} from '../../components';
 
-const ProfileScreen = () => {
+const ProfileScreen = ({navigation}) => {
+  const handleSginOut = () => {
+    AsyncStorage.removeItem('TOKEN').then(() => {
+      navigation.reset({index: 0, routes: [{name: 'LoginScreen'}]});
+    });
+  };
   return (
-    <View style={{paddingVertical: 20, paddingHorizontal: 20, flex: 1}}>
-      <View
-        style={{
-          backgroundColor: '#FFFF',
-          justifyContent: 'center',
-          alignItems: 'center',
-          paddingHorizontal: 100,
-          paddingVertical: 20,
-          borderRadius: 25,
-        }}>
+    <View style={styles.mainContainer}>
+      <View style={styles.pictContainer}>
         <Image source={profileImage} />
-        <Text
-          style={{
-            fontFamily: 'Poppins-Medium',
-            fontSize: 20,
-            marginTop: 14,
-            color: '#000',
-          }}>
-          John Doe
-        </Text>
-        <Text
-          style={{
-            fontFamily: 'Poppins-Medium',
-            fontSize: 14,
-            color: '#B4B3BB',
-          }}>
-          Courier
-        </Text>
+        <Text style={styles.name}>John Doe</Text>
+        <Text style={styles.couirerText}>Courier</Text>
       </View>
       <Space height={50} />
-      <View
-        style={{
-          backgroundColor: '#FFFF',
-          justifyContent: 'center',
-          paddingHorizontal: 28,
-          paddingVertical: 20,
-          borderRadius: 20,
-        }}>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            borderBottomWidth: 1,
-          }}>
+      <View style={styles.dataContainer}>
+        <View style={styles.email}>
           <IcProfileOff />
           <Space width={20} />
-          <Text
-            style={{
-              fontFamily: 'Poppins-Regular',
-              fontSize: 16,
-              alignSelf: 'flex-end',
-            }}>
-            email@app.com
-          </Text>
+          <Text style={styles.emailText}>email@app.com</Text>
         </View>
         <Space height={16} />
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            borderBottomWidth: 1,
-          }}>
+        <View style={styles.phoneNum}>
           <IcProfileOff />
           <Space width={20} />
-          <Text
-            style={{
-              fontFamily: 'Poppins-Regular',
-              fontSize: 16,
-              alignSelf: 'flex-end',
-            }}>
-            0891xxxxx
-          </Text>
+          <Text style={styles.phoneNumText}>0891xxxxx</Text>
         </View>
         <Space height={16} />
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            borderBottomWidth: 1,
-          }}>
+        <View style={styles.point}>
           <IcProfileOff />
           <Space width={20} />
-          <Text
-            style={{
-              fontFamily: 'Poppins-Regular',
-              fontSize: 16,
-              alignSelf: 'flex-end',
-            }}>
-            10 Points
-          </Text>
+          <Text style={styles.pointText}>10 Points</Text>
         </View>
         <Space height={16} />
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            borderBottomWidth: 1,
-          }}>
+        <View style={styles.infoApp}>
           <IcProfileOff />
           <Space width={20} />
-          <Text
-            style={{
-              fontFamily: 'Poppins-Regular',
-              fontSize: 16,
-              alignSelf: 'flex-end',
-            }}>
-            Info App
-          </Text>
+          <Text style={styles.infoAppText}>Info App</Text>
         </View>
       </View>
-      <View style={{flex: 1}} />
-      <Button labelBtn="Logout" btnColor="#F6BFBF" />
+      <View style={styles.btnContainer} />
+      <Button labelBtn="Logout" btnColor="#F6BFBF" onPress={handleSginOut} />
     </View>
   );
 };
 
 export default ProfileScreen;
+
+const styles = StyleSheet.create({
+  mainContainer: {paddingVertical: 20, paddingHorizontal: 20, flex: 1},
+  pictContainer: {
+    backgroundColor: '#FFFF',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 100,
+    paddingVertical: 20,
+    borderRadius: 25,
+  },
+  name: {
+    fontFamily: 'Poppins-Medium',
+    fontSize: 20,
+    marginTop: 14,
+    color: '#000',
+  },
+  couirerText: {
+    fontFamily: 'Poppins-Medium',
+    fontSize: 14,
+    color: '#B4B3BB',
+  },
+  dataContainer: {
+    backgroundColor: '#FFFF',
+    justifyContent: 'center',
+    paddingHorizontal: 28,
+    paddingVertical: 20,
+    borderRadius: 20,
+  },
+  email: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderBottomWidth: 1,
+  },
+  emailText: {
+    fontFamily: 'Poppins-Regular',
+    fontSize: 16,
+    alignSelf: 'flex-end',
+  },
+  phoneNum: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderBottomWidth: 1,
+  },
+  phoneNumText: {
+    fontFamily: 'Poppins-Regular',
+    fontSize: 16,
+    alignSelf: 'flex-end',
+  },
+  point: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderBottomWidth: 1,
+  },
+  pointText: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderBottomWidth: 1,
+  },
+  infoApp: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderBottomWidth: 1,
+  },
+  infoAppText: {
+    fontFamily: 'Poppins-Regular',
+    fontSize: 16,
+    alignSelf: 'flex-end',
+  },
+  btnContainer: {flex: 1},
+});
