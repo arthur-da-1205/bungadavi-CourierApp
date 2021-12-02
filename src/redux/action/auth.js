@@ -10,6 +10,7 @@ export const signInAction = (form, navigation) => dispatch => {
   axios
     .post('http://api.bungadavi.brits-team.com:8080/api/v1/kurir/login', form)
     .then(res => {
+      dispatch(setLoading(false));
       const token = res.data.token;
       const profile = {
         id: res.data.data[0].id,
@@ -20,7 +21,6 @@ export const signInAction = (form, navigation) => dispatch => {
         photo: res.data.data[0].photo_courier,
       };
 
-      dispatch(setLoading(false));
       storeData('TOKEN', {value: token});
       storeData('USER_PROFILE', profile);
 

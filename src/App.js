@@ -5,6 +5,7 @@ import {Provider, useSelector} from 'react-redux';
 import FlashMessage from 'react-native-flash-message';
 import PushNotification from 'react-native-push-notification';
 import Firebase from '@react-native-firebase/app';
+import Geolocation from '@react-native-community/geolocation';
 
 import NotifService from './NotifService';
 import Router from './router';
@@ -38,6 +39,11 @@ const App = () => {
   const handlePerm = perms => {
     Alert.alert('Permissions', JSON.stringify(perms));
   };
+
+  Geolocation.getCurrentPosition(info => {
+    console.log('longtitude', info.coords.longitude);
+    console.log('altitude', info.coords.latitude);
+  });
   return (
     <Provider store={store}>
       <MainApp />
