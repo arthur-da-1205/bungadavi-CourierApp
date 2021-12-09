@@ -4,6 +4,7 @@ import ProductCard from './ProductCard';
 import DetailTransactionSection from './DetailTransactionSection';
 import RecepientDetailSection from './RecepientDetailSection';
 import MessageDetailSection from './MessageDetailSection';
+import AcceptedModal from './AcceptedModal';
 
 export {
   BottomNavigator,
@@ -12,4 +13,5 @@ export {
   DetailTransactionSection,
   RecepientDetailSection,
   MessageDetailSection,
+  AcceptedModal,
 };

@@ -10,7 +10,7 @@ const dummyData = dummyCourierTask;
 
 // console.log(data);
 
-const AssignOrderScreen = ({navigation}) => {
+const AssignOrderScreen = ({data, navigation}) => {
   return (
     <SafeAreaView style={styles.contentContainer}>
       <Header headerTitle="Your Task" headerSubtitle="New task assign" />
@@ -26,7 +26,7 @@ const AssignOrderScreen = ({navigation}) => {
                 date={item.date}
                 timeSlot={item.timeslot}
                 statusTask={item.statusOrder}
-                onDetail={() => navigation.navigate('DetailScreen')}
+                onDetail={() => navigation.navigate('DetailScreen', item)}
               />
             );
           }

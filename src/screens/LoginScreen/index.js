@@ -89,11 +89,7 @@ const LoginScreen = ({navigation}) => {
         </TouchableOpacity>
       </View>
       <Space height={90} />
-      <Button
-        labelBtn="Login"
-        // onPress={() => navigation.replace('MainApp')}
-        onPress={handleSignin}
-      />
+      <Button labelBtn="Login" onPress={handleSignin} />
       <View style={styles.space} />
       <View style={styles.versionContainer}>
         <Text style={styles.versionText}>Bungadavi Mobile v.2.0</Text>

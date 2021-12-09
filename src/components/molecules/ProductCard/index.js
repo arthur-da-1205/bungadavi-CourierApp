@@ -2,19 +2,19 @@ import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import {productDummy} from '../../../assets';
 
-const ProductCard = () => {
+const ProductCard = ({productName, productDesc, statusLabel, statusValue}) => {
   return (
     <View style={styles.cardContainer}>
       <Text style={styles.itemTitle}>Item Ordered</Text>
       <View style={styles.contentContainer}>
         <Image source={productDummy} />
         <View>
-          <Text style={styles.productName}>Product Name</Text>
-          <Text style={styles.productDesc}>Product Description</Text>
+          <Text style={styles.productName}>{productName}</Text>
+          <Text style={styles.productDesc}>{productDesc}</Text>
         </View>
         <View>
-          <Text style={styles.status}>Status</Text>
-          <Text style={styles.statusValue}>Assigning</Text>
+          <Text style={styles.status}>{statusLabel}</Text>
+          <Text style={styles.statusValue}>{statusValue}</Text>
         </View>
       </View>
     </View>
