@@ -22,6 +22,7 @@ export const dummyCourierTask = [
     },
     message:
       'abcdefghijklmn opqrst uvwxyz 12345 678 90 lorem ipsum dolor sit amet, consectetur',
+    browse_pict: false,
   },
   {
     id: 2,
@@ -46,6 +47,7 @@ export const dummyCourierTask = [
     },
 
     message: 'abcdefghijklmn opqrst uvwxyz 12345 678 90',
+    browse_pict: false,
   },
   {
     id: 3,
@@ -70,6 +72,7 @@ export const dummyCourierTask = [
     },
 
     message: 'abcdefghijklmn opqrst uvwxyz 12345 678 90',
+    browse_pict: false,
   },
   {
     id: 4,
@@ -94,6 +97,7 @@ export const dummyCourierTask = [
     },
 
     message: 'abcdefghijklmn opqrst uvwxyz 12345 678 90',
+    browse_pict: false,
   },
   {
     id: 5,
@@ -118,5 +122,6 @@ export const dummyCourierTask = [
     },
 
     message: 'abcdefghijklmn opqrst uvwxyz 12345 678 90',
+    browse_pict: false,
   },
 ];

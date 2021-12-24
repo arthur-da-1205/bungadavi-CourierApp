@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {Modal, ScrollView, StyleSheet, View} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {Modal, ScrollView, StyleSheet, SafeAreaView, View} from 'react-native';
+import {launchCamera} from 'react-native-image-picker';
+
 import {
   AcceptedModal,
   Button,
@@ -10,6 +11,7 @@ import {
   ProductCard,
   RecepientDetailSection,
   Space,
+  UploadPictModal,
 } from '../../components';
 
 const DetailScreen = ({route}) => {
@@ -24,10 +26,14 @@ const DetailScreen = ({route}) => {
     transactionDetail,
     recepientDetail,
     message,
+    browse_pict,
   } = route.params;
 
   const [status, setStatus] = useState(statusOrder);
   const [acceptModal, setAcceptModal] = useState(false);
+  const [uploadModal, setUploadModal] = useState(false);
+  const [photo, setPhoto] = useState('');
+
   const renderButton = () => {
     switch (status) {
       case 'assigning':
@@ -45,11 +51,21 @@ const DetailScreen = ({route}) => {
 
       case 'accepted':
         return (
-          <Button
-            labelBtn="Take Picture"
-            onPress={() => {}}
-            btnColor="#EE3072"
-          />
+          <>
+            {browse_pict ? (
+              <Button
+                labelBtn="Browse From Gallery"
+                onPress={() => {}}
+                btnColor="#EE3072"
+              />
+            ) : (
+              <Button
+                labelBtn="Take Picture"
+                onPress={handleUploaModal}
+                btnColor="#EE3072"
+              />
+            )}
+          </>
         );
 
       default:
@@ -60,6 +76,30 @@ const DetailScreen = ({route}) => {
   const handleChangeStatus = () => {
     setStatus('accepted');
     setAcceptModal(true);
+  };
+
+  const handleUploaModal = () => {
+    console.log(status);
+    setUploadModal(true);
+  };
+
+  const closeUploadPhoto = () => {
+    setUploadModal(false);
+  };
+
+  const takePicture = () => {
+    launchCamera({}, response => {
+      if (response.didCancel || response.error) {
+        return;
+      }
+      const source = {uri: response.assets[0].uri};
+      const dataImage = {
+        uri: response.assets[0].uri,
+        type: response.assets[0].type,
+        name: response.assets[0].fileName,
+      };
+      setPhoto(source);
+    });
   };
   console.log(status);
   return (
@@ -101,6 +141,17 @@ const DetailScreen = ({route}) => {
           onClose={() => {
             setAcceptModal(false);
           }}
+        />
+      </Modal>
+      <Modal animationType="fade" transparent={true} visible={uploadModal}>
+        <UploadPictModal
+          bodyText="Click to take a picture"
+          onCameraOpen={takePicture}
+          onUpload={() => {
+            console.log('uploaded');
+          }}
+          onClose={closeUploadPhoto}
+          photoDisplay={photo}
         />
       </Modal>
     </SafeAreaView>
