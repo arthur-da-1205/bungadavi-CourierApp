@@ -14,7 +14,7 @@ const DoneScreen = () => {
           address="Jl. Jambu V no 16 Perumnas Kamal"
           date="19 November 2021"
           timeSlot="09.00 AM - 12.00 AM"
-          statusTask="Finished"
+          statusTask="done"
         />
         <OrderCard
           productImg={productDummy}
@@ -22,7 +22,7 @@ const DoneScreen = () => {
           address="Jl. Jambu V no 16 Perumnas Kamal"
           date="19 November 2021"
           timeSlot="09.00 AM - 12.00 AM"
-          statusTask="Finished"
+          statusTask="done"
         />
         <OrderCard
           productImg={productDummy}
@@ -30,7 +30,7 @@ const DoneScreen = () => {
           address="Jl. Jambu V no 16 Perumnas Kamal"
           date="19 November 2021"
           timeSlot="09.00 AM - 12.00 AM"
-          statusTask="Finished"
+          statusTask="done"
         />
         <OrderCard
           productImg={productDummy}
@@ -38,7 +38,7 @@ const DoneScreen = () => {
           address="Jl. Jambu V no 16 Perumnas Kamal"
           date="19 November 2021"
           timeSlot="09.00 AM - 12.00 AM"
-          statusTask="Finished"
+          statusTask="done"
         />
         <OrderCard
           productImg={productDummy}
@@ -46,7 +46,7 @@ const DoneScreen = () => {
           address="Jl. Jambu V no 16 Perumnas Kamal"
           date="19 November 2021"
           timeSlot="09.00 AM - 12.00 AM"
-          statusTask="Finished"
+          statusTask="done"
         />
       </ScrollView>
     </SafeAreaView>

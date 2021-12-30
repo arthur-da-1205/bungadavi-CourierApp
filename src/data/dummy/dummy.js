@@ -22,7 +22,7 @@ export const dummyCourierTask = [
     },
     message:
       'abcdefghijklmn opqrst uvwxyz 12345 678 90 lorem ipsum dolor sit amet, consectetur',
-    browse_pict: false,
+    browse_pict: true,
   },
   {
     id: 2,

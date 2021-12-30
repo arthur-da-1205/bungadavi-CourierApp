@@ -7,18 +7,19 @@ import {setLoading} from './global';
 
 export const signInAction = (form, navigation) => dispatch => {
   dispatch(setLoading(true));
-  axios
-    .post('http://api.bungadavi.brits-team.com:8080/api/v1/kurir/login', form)
+  API_HOST.post('/login', form)
     .then(res => {
       dispatch(setLoading(false));
       const token = res.data.token;
       const profile = {
         id: res.data.data[0].id,
+        fullName: res.data.data[0].fullname,
         username: res.data.data[0].username,
-        email: res.data.data[0].email_courier,
-        mobilePhone: res.data.data[0].phone_courier,
-        point: res.data.data[0].point_courier,
-        photo: res.data.data[0].photo_courier,
+        uuid: res.data.data[0].uuid,
+        email: res.data.data[0].email,
+        mobilePhone: res.data.data[0].mobile,
+        point: res.data.data[0].point,
+        photo: res.data.data[0].photo,
       };
 
       storeData('TOKEN', {value: token});
@@ -29,7 +30,6 @@ export const signInAction = (form, navigation) => dispatch => {
     .catch(err => {
       dispatch(setLoading(false));
       console.log(err);
-      toastMessage('Invalid email or password', 'danger');
     });
 };
 

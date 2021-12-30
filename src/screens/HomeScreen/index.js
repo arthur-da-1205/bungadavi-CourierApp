@@ -1,9 +1,26 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Dimensions, Image, Text, TouchableOpacity, View} from 'react-native';
 import {icAssign, icDeliver, icDone, IlHomepage} from '../../assets';
 import {Space} from '../../components';
+import {getData} from '../../utils/storage';
 
 const HomeScreen = ({navigation}) => {
+  const [token, setToken] = useState('');
+  const [uuid, setUuid] = useState('');
+
+  // useEffect(() => {
+  //   getData('USER_PROFILE').then(res => {
+  //     setUuid(res.uuid);
+  //   });
+
+  //   getData('TOKEN').then(res => {
+  //     setToken(res);
+  //   });
+  //   // dispatch(getAssignData(token, uuid));
+  //   // setAssignData(getAssignData);
+  //   // console.log(assignData);
+  // }, []);
+  console.log([token, uuid]);
   return (
     <View>
       <View

@@ -18,7 +18,7 @@ const LoginScreen = ({navigation}) => {
   const [form, setForm] = useForm({
     username: '',
     password: '',
-    expiredToken: '24h',
+    expiredToken: '9999h',
   });
 
   const dispatch = useDispatch();

@@ -9,6 +9,7 @@ export const courierAssignReducer = (state = initAssign, action) => {
         ...state,
         task: action.value,
       };
+    default:
+      return state;
   }
-  return state;
 };

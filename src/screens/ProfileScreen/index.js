@@ -1,20 +1,33 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {IcProfileOff, profileImage} from '../../assets';
 import {Button, Space} from '../../components';
+import {getData} from '../../utils/storage';
 
 const ProfileScreen = ({navigation}) => {
+  const [profile, setProfile] = useState('');
+  const [photo, setPhoto] = useState('');
+
   const handleSginOut = () => {
     AsyncStorage.removeItem('TOKEN').then(() => {
       navigation.reset({index: 0, routes: [{name: 'LoginScreen'}]});
     });
   };
+
+  useEffect(() => {
+    getData('USER_PROFILE').then(res => {
+      setProfile(res);
+      setPhoto({uri: res.photo});
+    });
+  }, []);
+  console.log(photo);
+
   return (
     <View style={styles.mainContainer}>
       <View style={styles.pictContainer}>
-        <Image source={profileImage} />
-        <Text style={styles.name}>John Doe</Text>
+        <Image source={photo} />
+        <Text style={styles.name}>{profile.fullName}</Text>
         <Text style={styles.couirerText}>Courier</Text>
       </View>
       <Space height={50} />
@@ -22,19 +35,19 @@ const ProfileScreen = ({navigation}) => {
         <View style={styles.email}>
           <IcProfileOff />
           <Space width={20} />
-          <Text style={styles.emailText}>email@app.com</Text>
+          <Text style={styles.emailText}>{profile.email}</Text>
         </View>
         <Space height={16} />
         <View style={styles.phoneNum}>
           <IcProfileOff />
           <Space width={20} />
-          <Text style={styles.phoneNumText}>0891xxxxx</Text>
+          <Text style={styles.phoneNumText}>{profile.mobilePhone}</Text>
         </View>
         <Space height={16} />
         <View style={styles.point}>
           <IcProfileOff />
           <Space width={20} />
-          <Text style={styles.pointText}>10 Points</Text>
+          <Text style={styles.pointText}>{profile.point} Point</Text>
         </View>
         <Space height={16} />
         <View style={styles.infoApp}>
