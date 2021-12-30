@@ -29,23 +29,12 @@ const AssignOrderScreen = ({data, navigation}) => {
     getData('TOKEN').then(res => {
       setToken(res);
     });
-    API_HOST.get(`/courier_assign?courier_uuid=${uuid}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then(res => {
-        dispatch(setLoading(false));
-        console.log('Success fetch data');
-        console.log(res.data);
-      })
-      .catch(err => {
-        dispatch(setLoading(false));
-        console.log('Error: ', err);
-      });
   }, []);
-  console.log(token);
-  console.log(uuid);
+
+  useEffect(() => {
+    const bearerToken = token.value;
+    dispatch(getAssignData(bearerToken, uuid));
+  }, [getAssignData()]);
 
   return (
     <SafeAreaView style={styles.contentContainer}>
