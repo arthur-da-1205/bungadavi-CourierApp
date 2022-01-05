@@ -3,13 +3,11 @@ const initAssign = {
 };
 
 export const courierAssignReducer = (state = initAssign, action) => {
-  switch (action.type) {
-    case 'SET_ASSIGN':
-      return {
-        ...state,
-        task: action.value,
-      };
-    default:
-      return state;
+  if (action.type === 'SET_ASSIGN') {
+    return {
+      ...state,
+      task: action.value,
+    };
   }
+  return state;
 };

@@ -1,7 +1,4 @@
-import axios from 'axios';
-import {showMessage} from 'react-native-flash-message';
 import {API_HOST} from '../../config';
-import {toastMessage} from '../../utils';
 import {setLoading} from './global';
 
 export const getAssignData = (token, courierId) => dispatch => {
@@ -14,9 +11,10 @@ export const getAssignData = (token, courierId) => dispatch => {
       },
     })
       .then(res => {
+        console.log(res.data.msg);
+        dispatch({type: 'SET_ASSIGN', value: res.data.msg});
         dispatch(setLoading(false));
         console.log('Success fetch data');
-        console.log(res.data);
       })
       .catch(err => {
         // dispatch(setLoading(false));

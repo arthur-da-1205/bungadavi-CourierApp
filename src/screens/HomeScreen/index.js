@@ -1,26 +1,52 @@
+import Geolocation from '@react-native-community/geolocation';
 import React, {useEffect, useState} from 'react';
-import {Dimensions, Image, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Alert,
+  Dimensions,
+  Image,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {icAssign, icDeliver, icDone, IlHomepage} from '../../assets';
 import {Space} from '../../components';
+import {API_HOST} from '../../config';
+import NotifService from '../../NotifService';
 import {getData} from '../../utils/storage';
 
 const HomeScreen = ({navigation}) => {
-  const [token, setToken] = useState('');
+  const [userToken, setUserToken] = useState('');
   const [uuid, setUuid] = useState('');
 
-  // useEffect(() => {
-  //   getData('USER_PROFILE').then(res => {
-  //     setUuid(res.uuid);
-  //   });
+  Geolocation.getCurrentPosition(info => {
+    console.log('longtitude', info.coords.longitude);
+    console.log('altitude', info.coords.latitude);
+  });
 
-  //   getData('TOKEN').then(res => {
-  //     setToken(res);
-  //   });
-  //   // dispatch(getAssignData(token, uuid));
-  //   // setAssignData(getAssignData);
-  //   // console.log(assignData);
-  // }, []);
-  console.log([token, uuid]);
+  useEffect(() => {
+    getData('TOKEN').then(res => {
+      setUserToken(res);
+    });
+    getData('USER_PROFILE').then(res => {
+      setUuid(res.fullName);
+    });
+  }, []);
+
+  // useEffect(() => {
+  //   API_HOST.put('/add_fcm', registerToken, {
+  //     headers: {
+  //       Authorization: `Bearer ${token}`,
+  //       'Content-Type': 'multipart/form-data',
+  //     },
+  //   })
+  //     .then(res => {
+  //       console.log(res);
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     });
+  // }, [registerToken, token]);
+
   return (
     <View>
       <View
@@ -50,7 +76,7 @@ const HomeScreen = ({navigation}) => {
             fontSize: 18,
             fontWeight: 'bold',
           }}>
-          Hi, James
+          Hi, {uuid}
         </Text>
       </View>
       <View

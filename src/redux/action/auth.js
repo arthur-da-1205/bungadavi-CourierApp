@@ -1,8 +1,6 @@
-import axios from 'axios';
-
 import {API_HOST} from '../../config';
-import {toastMessage} from '../../utils';
 import {storeData} from '../../utils/storage';
+import {toastMessage} from '../../utils/toastMessage';
 import {setLoading} from './global';
 
 export const signInAction = (form, navigation) => dispatch => {
@@ -30,6 +28,7 @@ export const signInAction = (form, navigation) => dispatch => {
     .catch(err => {
       dispatch(setLoading(false));
       console.log(err);
+      toastMessage('Invalid username or password', 'danger');
     });
 };
 
