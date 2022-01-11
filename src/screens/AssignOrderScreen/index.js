@@ -39,6 +39,7 @@ const AssignOrderScreen = ({data, navigation}) => {
       <ScrollView style={styles.content}>
         {task ? (
           task.map((item, index) => {
+            console.log(item.delivery_number_assignment);
             if (
               item.status_assignment === 'ASSIGNED' ||
               item.status_assignment === 'ACCEPT'
@@ -52,9 +53,7 @@ const AssignOrderScreen = ({data, navigation}) => {
                   date={item.delivery_date}
                   timeSlot={item.time_slot_name}
                   statusTask={item.status_assignment}
-                  onDetail={() =>
-                    navigation.navigate('DetailScreen', {data: item.id})
-                  }
+                  onDetail={() => navigation.navigate('DetailScreen', item)}
                 />
               );
             }

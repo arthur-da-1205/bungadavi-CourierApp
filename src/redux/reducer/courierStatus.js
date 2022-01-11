@@ -3,13 +3,11 @@ const initStatus = {
 };
 
 export const courierStatusReducer = (state = initStatus, action) => {
-  switch (action.type) {
-    case 'SET_STATUS':
-      return {
-        ...state,
-        statusFlag: action.value,
-      };
-    default:
-      return state;
+  if (action.type === 'SET_STATUS') {
+    return {
+      ...state,
+      statusFlag: action.value,
+    };
   }
+  return state;
 };

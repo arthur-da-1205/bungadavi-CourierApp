@@ -41,8 +41,8 @@ OrderCard.propTypes = {
     'ASSIGNED',
     'ACCEPT',
     'rejected',
-    'on-delivery',
-    'done',
+    'ON-DELIVERY',
+    'FINISH',
     'returned',
   ]).isRequired,
 };

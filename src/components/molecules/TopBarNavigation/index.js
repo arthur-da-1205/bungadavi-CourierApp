@@ -1,9 +1,9 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, Animated, ScrollView} from 'react-native';
+import {View, TouchableOpacity, Animated, StyleSheet} from 'react-native';
 
 const TopBarNavigation = ({state, descriptors, navigation, position}) => {
   return (
-    <View style={{flexDirection: 'row'}}>
+    <View style={styles.container}>
       {state.routes.map((route, index) => {
         const {options} = descriptors[route.key];
         const label =
@@ -49,11 +49,7 @@ const TopBarNavigation = ({state, descriptors, navigation, position}) => {
             testID={options.tabBarTestID}
             onPress={onPress}
             onLongPress={onLongPress}
-            style={{
-              flex: 1,
-              padding: 12,
-              justifyContent: 'space-between',
-            }}>
+            style={styles.content}>
             <Animated.Text style={{opacity, color: '#f0f'}}>
               {label}
             </Animated.Text>
@@ -65,3 +61,12 @@ const TopBarNavigation = ({state, descriptors, navigation, position}) => {
 };
 
 export default TopBarNavigation;
+
+const styles = StyleSheet.create({
+  container: {flexDirection: 'row'},
+  content: {
+    flex: 1,
+    padding: 12,
+    justifyContent: 'space-between',
+  },
+});

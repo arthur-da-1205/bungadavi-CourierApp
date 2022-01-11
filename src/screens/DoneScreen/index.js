@@ -1,53 +1,62 @@
-import React from 'react';
-import {SafeAreaView, ScrollView, StyleSheet} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {SafeAreaView, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 import {productDummy} from '../../assets';
-import {Header, OrderCard} from '../../components';
+import {Header, OrderCard, Space} from '../../components';
+import {getAssignData} from '../../redux/action';
+import {getData} from '../../utils/storage';
 
-const DoneScreen = () => {
+const DoneScreen = ({data, navigation}) => {
+  const dispatch = useDispatch();
+  const {task} = useSelector(state => state.courierAssignReducer);
+  const [token, setToken] = useState('');
+  const [uuid, setUuid] = useState('');
+
+  useEffect(() => {
+    getData('USER_PROFILE').then(res => {
+      setUuid(res.uuid);
+    });
+
+    getData('TOKEN').then(res => {
+      setToken(res);
+    });
+  }, []);
+
+  const bearerToken = token.value;
+  useEffect(() => {
+    if (bearerToken) {
+      dispatch(getAssignData(bearerToken, uuid));
+    }
+  }, [bearerToken]);
   return (
-    <SafeAreaView style={{paddingBottom: 30}}>
+    <SafeAreaView style={styles.container}>
       <Header headerTitle="Your Task" headerSubtitle="Finished task" />
       <ScrollView style={styles.content}>
-        <OrderCard
-          productImg={productDummy}
-          orderInv="SBDC1205940004C"
-          address="Jl. Jambu V no 16 Perumnas Kamal"
-          date="19 November 2021"
-          timeSlot="09.00 AM - 12.00 AM"
-          statusTask="done"
-        />
-        <OrderCard
-          productImg={productDummy}
-          orderInv="SBDC1205940004C"
-          address="Jl. Jambu V no 16 Perumnas Kamal"
-          date="19 November 2021"
-          timeSlot="09.00 AM - 12.00 AM"
-          statusTask="done"
-        />
-        <OrderCard
-          productImg={productDummy}
-          orderInv="SBDC1205940004C"
-          address="Jl. Jambu V no 16 Perumnas Kamal"
-          date="19 November 2021"
-          timeSlot="09.00 AM - 12.00 AM"
-          statusTask="done"
-        />
-        <OrderCard
-          productImg={productDummy}
-          orderInv="SBDC1205940004C"
-          address="Jl. Jambu V no 16 Perumnas Kamal"
-          date="19 November 2021"
-          timeSlot="09.00 AM - 12.00 AM"
-          statusTask="done"
-        />
-        <OrderCard
-          productImg={productDummy}
-          orderInv="SBDC1205940004C"
-          address="Jl. Jambu V no 16 Perumnas Kamal"
-          date="19 November 2021"
-          timeSlot="09.00 AM - 12.00 AM"
-          statusTask="done"
-        />
+        {task ? (
+          task.map((item, index) => {
+            console.log(item.delivery_number_assignment);
+            if (item.status_assignment === 'FINISH') {
+              return (
+                <OrderCard
+                  key={index}
+                  productImg={productDummy}
+                  orderInv={item.code_order_transaction}
+                  address={item.address}
+                  date={item.delivery_date}
+                  timeSlot={item.time_slot_name}
+                  statusTask={item.status_assignment}
+                  onDetail={() => navigation.navigate('DetailScreen', item)}
+                />
+              );
+            }
+            return;
+          })
+        ) : (
+          <View style={styles.empty}>
+            <Space height={200} />
+            <Text style={styles.text}>Data not found</Text>
+          </View>
+        )}
       </ScrollView>
     </SafeAreaView>
   );
@@ -56,5 +65,6 @@ const DoneScreen = () => {
 export default DoneScreen;
 
 const styles = StyleSheet.create({
+  container: {paddingBottom: 30},
   content: {paddingHorizontal: 8, paddingVertical: 20},
 });
