@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native';
-import {Space} from '../..';
+import {Space} from '../../atoms/Space';
 import {heightScreen, widthScreen} from '../../../constants';
 
 const UploadPictModal = ({

@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
-import {Space} from '../..';
+import {Space} from '../../atoms/Space';
 
 const AcceptedModal = ({onAgree, onClose}) => {
   return (

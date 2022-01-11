@@ -64,7 +64,7 @@ const DetailScreen = ({route}) => {
       delivery_number_assignment,
     );
     bodyFormData.append('courier_uuid', uuid);
-    bodyFormData.append('status_order_trx', 'TEST');
+    bodyFormData.append('status_order_trx', 'Accepted by Courier');
     // bodyFormData.append('file', image);
     API_HOST.put('/change_status_assignment', bodyFormData, {
       headers: {
@@ -131,12 +131,15 @@ const DetailScreen = ({route}) => {
   };
 
   const doUpload = () => {
+    const imgArr = [image1, image2, image3];
     var bodyForm = new FormData();
     bodyForm.append('status_assignment', 'ON-DELIVERY');
     bodyForm.append('delivery_number_assignment', delivery_number_assignment);
     bodyForm.append('courier_uuid', uuid);
     bodyForm.append('status_order_trx', 'On Delivery');
-    bodyForm.append('img', image1);
+    imgArr.forEach(item => {
+      bodyForm.append('img[]', item);
+    });
     console.log(bodyForm);
     API_HOST.put('change_status_assignment', bodyForm, {
       headers: {
