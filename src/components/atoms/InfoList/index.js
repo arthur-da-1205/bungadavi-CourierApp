@@ -7,7 +7,7 @@ const InfoList = ({label, labelValue}) => {
       <View style={styles.content}>
         <Text style={styles.textLabel}>{label}</Text>
       </View>
-      <View style={{flex: 1}}>
+      <View style={styles.valueContainer}>
         <Text style={styles.labelValue}>{labelValue}</Text>
       </View>
     </View>
@@ -17,7 +17,7 @@ const InfoList = ({label, labelValue}) => {
 export default InfoList;
 
 const styles = StyleSheet.create({
-  conntainer: {flexDirection: 'row', justifyContent: 'space-between'},
+  container: {flexDirection: 'row', justifyContent: 'space-between'},
   content: {flex: 1},
   textLabel: {fontFamily: 'Poppins-Regular', fontSize: 12},
   labelValue: {
@@ -26,4 +26,5 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#000',
   },
+  valueContainer: {flex: 1},
 });

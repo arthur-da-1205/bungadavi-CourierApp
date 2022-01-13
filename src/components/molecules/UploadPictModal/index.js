@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native';
-import {Space} from '../../atoms/Space';
-import {heightScreen, widthScreen} from '../../../constants';
+import {Space} from '../..';
+// import {heightScreen, widthScreen} from '../../../constants';
 
 const UploadPictModal = ({
   labelUpload = 'Upload',
@@ -98,7 +98,7 @@ const UploadPictModal = ({
 export default UploadPictModal;
 
 const styles = StyleSheet.create({
-  cpntainer: {
+  container: {
     flex: 1,
     backgroundColor: 'rgba(0,0,0, 0.3)',
     justifyContent: 'center',

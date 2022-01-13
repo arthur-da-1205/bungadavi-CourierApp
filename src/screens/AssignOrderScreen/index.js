@@ -31,7 +31,7 @@ const AssignOrderScreen = ({data, navigation}) => {
     if (bearerToken) {
       dispatch(getAssignData(bearerToken, uuid));
     }
-  }, [bearerToken]);
+  }, [bearerToken, uuid, dispatch]);
 
   return (
     <SafeAreaView style={styles.contentContainer}>

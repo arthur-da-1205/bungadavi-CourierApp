@@ -36,7 +36,6 @@ const DetailScreen = ({route}) => {
   const [image3, setImage3] = useState('');
 
   const bearerToken = token.value;
-  console.log(bearerToken);
   useEffect(() => {
     if (bearerToken) {
       API_HOST.get(
@@ -54,7 +53,7 @@ const DetailScreen = ({route}) => {
           console.log(err);
         });
     }
-  }, [bearerToken]);
+  }, [bearerToken, delivery_number_assignment]);
 
   const doAccept = () => {
     var bodyFormData = new FormData();
@@ -65,7 +64,6 @@ const DetailScreen = ({route}) => {
     );
     bodyFormData.append('courier_uuid', uuid);
     bodyFormData.append('status_order_trx', 'Accepted by Courier');
-    // bodyFormData.append('file', image);
     API_HOST.put('/change_status_assignment', bodyFormData, {
       headers: {
         Authorization: `Bearer ${bearerToken}`,
@@ -74,10 +72,7 @@ const DetailScreen = ({route}) => {
     })
       .then(res => {
         // dispatch({type: 'SET_STATUS', value: res.data.msg});
-        console.log(bodyFormData);
-        console.log(res);
-        console.log('changed');
-        setStatus(status_assignment);
+        setStatus('ACCEPT');
       })
       .catch(err => {
         console.log(err);
@@ -90,13 +85,13 @@ const DetailScreen = ({route}) => {
         return;
       }
       const source1 = {uri: response.assets[0].uri};
-      const dataImage1 = {
+      const dataImage = {
         uri: response.assets[0].uri,
         type: response.assets[0].type,
         name: response.assets[0].fileName,
       };
       setPhoto1(source1);
-      setImage1(dataImage1);
+      setImage1(dataImage);
     });
   };
   const takePicture2 = () => {
@@ -105,13 +100,13 @@ const DetailScreen = ({route}) => {
         return;
       }
       const source2 = {uri: response.assets[0].uri};
-      const dataImage2 = {
+      const dataImage = {
         uri: response.assets[0].uri,
         type: response.assets[0].type,
         name: response.assets[0].fileName,
       };
       setPhoto2(source2);
-      setImage2(dataImage2);
+      setImage2(dataImage);
     });
   };
   const takePicture3 = () => {
@@ -120,31 +115,37 @@ const DetailScreen = ({route}) => {
         return;
       }
       const source3 = {uri: response.assets[0].uri};
-      const dataImage3 = {
+      const dataImage = {
         uri: response.assets[0].uri,
         type: response.assets[0].type,
         name: response.assets[0].fileName,
       };
       setPhoto3(source3);
-      setImage3(dataImage3);
+      setImage3(dataImage);
     });
   };
-
   const doUpload = () => {
-    const imgArr = [image1, image2, image3];
     var bodyForm = new FormData();
     bodyForm.append('status_assignment', 'ON-DELIVERY');
     bodyForm.append('delivery_number_assignment', delivery_number_assignment);
     bodyForm.append('courier_uuid', uuid);
     bodyForm.append('status_order_trx', 'On Delivery');
-    imgArr.forEach(item => {
-      bodyForm.append('img[]', item);
-    });
-    console.log(bodyForm);
+    // image.forEach(item => {
+    //   console.log(item);
+    //   bodyForm.append('img', JSON.stringify(item));
+    // });
+    // for (var i = 0; i < image.length; i++) {
+    //   bodyForm.append('img[]', image[i]);
+    // }
+    bodyForm.append('img', image1);
+    bodyForm.append('img', image2);
+    bodyForm.append('img', image3);
+
     API_HOST.put('change_status_assignment', bodyForm, {
       headers: {
         Authorization: `Bearer ${bearerToken}`,
-        'Content-Type': 'multipart/form-data',
+        'Content-Type': 'applications/json',
+        Accept: 'applications/json',
       },
     })
       .then(res => {
@@ -163,7 +164,6 @@ const DetailScreen = ({route}) => {
     bodyData.append('courier_uuid', uuid);
     bodyData.append('status_order_trx', 'TEST');
     bodyData.append('img', []);
-    console.log(bodyData);
     API_HOST.put('change_status_assignment', bodyData, {
       headers: {
         Authorization: `Bearer ${bearerToken}`,
@@ -201,7 +201,6 @@ const DetailScreen = ({route}) => {
     setUploadModal(false);
   };
 
-  console.log(status);
   const renderButton = () => {
     switch (status) {
       case 'ASSIGNED':

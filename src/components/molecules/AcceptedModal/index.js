@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
-import {Space} from '../../atoms/Space';
+import {Space} from '../..';
 
 const AcceptedModal = ({onAgree, onClose}) => {
   return (
@@ -14,6 +14,7 @@ const AcceptedModal = ({onAgree, onClose}) => {
             <TouchableOpacity onPress={onAgree}>
               <Text style={styles.textBtn}>Yakin</Text>
             </TouchableOpacity>
+            <Space width={14} />
             <TouchableOpacity onPress={onClose}>
               <Text style={styles.textBtn}>Close</Text>
             </TouchableOpacity>
@@ -62,6 +63,6 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     fontFamily: 'Poppins-Medium',
     color: '#7851a9',
-    fontSize: 18,
+    fontSize: 15,
   },
 });
