@@ -7,6 +7,7 @@ import MessageDetailSection from './MessageDetailSection';
 import AcceptedModal from './AcceptedModal';
 import UploadPictModal from './UploadPictModal';
 import TopBarNavigation from './TopBarNavigation';
+import FinishModal from './FinishModal';
 
 export {
   BottomNavigator,
@@ -18,4 +19,5 @@ export {
   AcceptedModal,
   UploadPictModal,
   TopBarNavigation,
+  FinishModal,
 };

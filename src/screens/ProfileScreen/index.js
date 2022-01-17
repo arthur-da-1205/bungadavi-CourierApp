@@ -26,7 +26,7 @@ const ProfileScreen = ({navigation}) => {
   return (
     <View style={styles.mainContainer}>
       <View style={styles.pictContainer}>
-        <Image source={photo} />
+        <Image source={{photo}} />
         <Text style={styles.name}>{profile.fullName}</Text>
         <Text style={styles.couirerText}>Courier</Text>
       </View>

@@ -13,6 +13,7 @@ import {
   DoneScreen,
   SplashScreen,
   DetailScreen,
+  QRCodeScreen,
 } from '../screens';
 
 const Tab = createBottomTabNavigator();
@@ -77,6 +78,11 @@ const Router = () => {
         name="DetailScreen"
         component={DetailScreen}
         options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="QRCodeScreen"
+        component={QRCodeScreen}
+        options={{title: 'Scan for DO and Card Message'}}
       />
     </Stack.Navigator>
   );

@@ -3,11 +3,8 @@ import {SafeAreaView, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {productDummy} from '../../assets';
 import {Header, OrderCard, Space} from '../../components';
-import {dummyCourierTask} from '../../data/dummy';
 import {getAssignData} from '../../redux/action';
 import {getData} from '../../utils/storage';
-
-const dummyData = dummyCourierTask;
 
 const OnDeliveryScreen = ({data, navigation}) => {
   const dispatch = useDispatch();
@@ -30,7 +27,7 @@ const OnDeliveryScreen = ({data, navigation}) => {
     if (bearerToken) {
       dispatch(getAssignData(bearerToken, uuid));
     }
-  }, [bearerToken]);
+  }, [bearerToken, uuid, dispatch]);
 
   return (
     <SafeAreaView style={styles.contentContainer}>

@@ -7,6 +7,7 @@ import AssignOrderScreen from './AssignOrderScreen';
 import OnDeliveryScreen from './OnDeliveryScreen';
 import DoneScreen from './DoneScreen';
 import DetailScreen from './DetailScreen';
+import QRCodeScreen from './QRCodeScreen';
 
 export {
   SplashScreen,
@@ -18,4 +19,5 @@ export {
   OnDeliveryScreen,
   DoneScreen,
   DetailScreen,
+  QRCodeScreen,
 };

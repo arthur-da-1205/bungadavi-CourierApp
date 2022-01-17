@@ -7,6 +7,7 @@ import {
   AcceptedModal,
   Button,
   DetailTransactionSection,
+  FinishModal,
   Header,
   MessageDetailSection,
   ProductCard,
@@ -19,21 +20,31 @@ import {courierStatusReducer} from '../../redux/reducer/courierStatus';
 import {useForm} from '../../utils';
 import {getData} from '../../utils/storage';
 
-const DetailScreen = ({route}) => {
+const DetailScreen = ({route, navigation}) => {
   const {status_assignment, delivery_number_assignment, uuid} = route.params;
 
   const [status, setStatus] = useState(status_assignment);
   const [acceptModal, setAcceptModal] = useState(false);
   const [uploadModal, setUploadModal] = useState(false);
+  const [finishModal, setFinishModal] = useState(false);
+
   const [photo1, setPhoto1] = useState('');
   const [photo2, setPhoto2] = useState('');
   const [photo3, setPhoto3] = useState('');
-  const [courierUuid, setCourierUuid] = useState('');
-  const [token, setToken] = useState('');
-  const [detail, setDetail] = useState(null);
   const [image1, setImage1] = useState('');
   const [image2, setImage2] = useState('');
   const [image3, setImage3] = useState('');
+
+  const [courierUuid, setCourierUuid] = useState('');
+  const [token, setToken] = useState('');
+  const [detail, setDetail] = useState(null);
+
+  const [finishPict1, setFinishPict1] = useState('');
+  const [finishPict2, setFinishPict2] = useState('');
+  const [finishPict3, setFinishPict3] = useState('');
+  const [finishImg1, setFinishImg1] = useState('');
+  const [finishImg2, setFinishImg2] = useState('');
+  const [finishImg3, setFinishImg3] = useState('');
 
   const bearerToken = token.value;
   useEffect(() => {
@@ -55,7 +66,7 @@ const DetailScreen = ({route}) => {
     }
   }, [bearerToken, delivery_number_assignment]);
 
-  const doAccept = () => {
+  const doAccept = async () => {
     var bodyFormData = new FormData();
     bodyFormData.append('status_assignment', 'ACCEPT');
     bodyFormData.append(
@@ -124,19 +135,13 @@ const DetailScreen = ({route}) => {
       setImage3(dataImage);
     });
   };
+
   const doUpload = () => {
     var bodyForm = new FormData();
     bodyForm.append('status_assignment', 'ON-DELIVERY');
     bodyForm.append('delivery_number_assignment', delivery_number_assignment);
     bodyForm.append('courier_uuid', uuid);
     bodyForm.append('status_order_trx', 'On Delivery');
-    // image.forEach(item => {
-    //   console.log(item);
-    //   bodyForm.append('img', JSON.stringify(item));
-    // });
-    // for (var i = 0; i < image.length; i++) {
-    //   bodyForm.append('img[]', image[i]);
-    // }
     bodyForm.append('img', image1);
     bodyForm.append('img', image2);
     bodyForm.append('img', image3);
@@ -151,32 +156,118 @@ const DetailScreen = ({route}) => {
       .then(res => {
         // dispatch({type: 'SET_STATUS', value: res.data.msg});
         console.log(res);
+        console.log(bodyForm);
+        navigation.replace('OnDeliveryScreen');
       })
       .catch(err => {
         console.log(err);
       });
   };
 
+  const finishPicture1 = () => {
+    launchCamera({quality: 0.3, maxHeight: 200, maxWidth: 200}, response => {
+      if (response.didCancel || response.error) {
+        return;
+      }
+      const source1 = {uri: response.assets[0].uri};
+      const dataImage = {
+        uri: response.assets[0].uri,
+        type: response.assets[0].type,
+        name: response.assets[0].fileName,
+      };
+      setFinishPict1(source1);
+      setFinishImg1(dataImage);
+    });
+  };
+  const finishPicture2 = () => {
+    launchCamera({quality: 0.3, maxHeight: 200, maxWidth: 200}, response => {
+      if (response.didCancel || response.error) {
+        return;
+      }
+      const source2 = {uri: response.assets[0].uri};
+      const dataImage = {
+        uri: response.assets[0].uri,
+        type: response.assets[0].type,
+        name: response.assets[0].fileName,
+      };
+      setFinishPict2(source2);
+      setFinishImg2(dataImage);
+    });
+  };
+  const finishPicture3 = () => {
+    launchCamera({quality: 0.3, maxHeight: 200, maxWidth: 200}, response => {
+      if (response.didCancel || response.error) {
+        return;
+      }
+      const source3 = {uri: response.assets[0].uri};
+      const dataImage = {
+        uri: response.assets[0].uri,
+        type: response.assets[0].type,
+        name: response.assets[0].fileName,
+      };
+      setFinishPict3(source3);
+      setFinishImg3(dataImage);
+    });
+  };
+
+  var bodyDataDump = new FormData();
+  bodyDataDump.append('od_uuid', detail?.order_transactions_uuid);
+  bodyDataDump.append('ds_uuid', detail?.delivery_schedule_uuid);
+  bodyDataDump.append('send_recv_uuid', detail?.sender_receiver_uuid);
+  bodyDataDump.append('da_uuid', detail?.delivery_assign_order_uuid);
+  bodyDataDump.append('usr_uuid', detail?.user_uuid);
+  bodyDataDump.append('courier_uuid', detail?.courier_uuid);
+  bodyDataDump.append('recv_recipient', 'TEST');
+  bodyDataDump.append('stat_receipt', 'test');
+  bodyDataDump.append('notes_receipt', 'Test');
+  bodyDataDump.append('fee_receipt', 123);
+  bodyDataDump.append('reward_receipt', 123);
+  bodyDataDump.append('img', finishImg1);
+  bodyDataDump.append('img', finishImg2);
+  bodyDataDump.append('img', finishImg3);
+
+  console.log(bodyDataDump);
   const doFinish = () => {
-    var bodyData = new FormData();
-    bodyData.append('status_assignment', 'FINISH');
-    bodyData.append('delivery_number_assignment', delivery_number_assignment);
-    bodyData.append('courier_uuid', uuid);
-    bodyData.append('status_order_trx', 'TEST');
-    bodyData.append('img', []);
-    API_HOST.put('change_status_assignment', bodyData, {
-      headers: {
-        Authorization: `Bearer ${bearerToken}`,
-        'Content-Type': 'multipart/form-data',
-      },
-    })
-      .then(res => {
-        // dispatch({type: 'SET_STATUS', value: res.data.msg});
-        console.log(res);
+    if (bodyDataDump) {
+      API_HOST.post('finish_order', bodyDataDump, {
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+          'Content-Type': 'multipart/form-data',
+        },
       })
-      .catch(err => {
-        console.log(err);
-      });
+        .then(res => {
+          // dispatch({type: 'SET_STATUS', value: res.data.msg});
+          console.log(res);
+          var bodyForm = new FormData();
+          bodyForm.append('status_assignment', 'FINISH');
+          bodyForm.append(
+            'delivery_number_assignment',
+            delivery_number_assignment,
+          );
+          bodyForm.append('courier_uuid', uuid);
+          bodyForm.append('status_order_trx', 'Finish');
+
+          API_HOST.put('change_status_assignment', bodyForm, {
+            headers: {
+              Authorization: `Bearer ${bearerToken}`,
+              'Content-Type': 'applications/json',
+              Accept: 'applications/json',
+            },
+          })
+            .then(response => {
+              // dispatch({type: 'SET_STATUS', value: res.data.msg});
+              console.log(response);
+              console.log(bodyForm);
+              navigation.replace('OnDeliveryScreen');
+            })
+            .catch(err => {
+              console.log(err);
+            });
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
   };
 
   useEffect(() => {
@@ -188,7 +279,6 @@ const DetailScreen = ({route}) => {
       setToken(res);
     });
   }, []);
-  const dispatch = useDispatch();
 
   const handleModaConfirm = () => {
     setAcceptModal(true);
@@ -196,9 +286,16 @@ const DetailScreen = ({route}) => {
   const handleUploaModal = () => {
     setUploadModal(true);
   };
+  const handleUploadFinish = () => {
+    setFinishModal(true);
+  };
 
   const closeUploadPhoto = () => {
     setUploadModal(false);
+  };
+
+  const closeFinishModal = () => {
+    setFinishModal(false);
   };
 
   const renderButton = () => {
@@ -221,7 +318,9 @@ const DetailScreen = ({route}) => {
           <>
             <Button
               labelBtn="Show QR Code"
-              // onPress={handleUploaModal}
+              onPress={() => {
+                navigation.navigate('QRCodeScreen', detail);
+              }}
               btnColor="#00FF"
             />
             <Space height={10} />
@@ -236,7 +335,11 @@ const DetailScreen = ({route}) => {
       case 'ON-DELIVERY':
         return (
           <>
-            <Button labelBtn="FINISH" onPress={doFinish} btnColor="#00FF" />
+            <Button
+              labelBtn="FINISH"
+              onPress={handleUploadFinish}
+              btnColor="#00FF"
+            />
             <Space height={10} />
             <Button
               labelBtn="RETURNED"
@@ -309,6 +412,22 @@ const DetailScreen = ({route}) => {
           photoDisplay1={photo1}
           photoDisplay2={photo2}
           photoDisplay3={photo3}
+        />
+      </Modal>
+      <Modal animationType="fade" transparent={true} visible={finishModal}>
+        <FinishModal
+          bodyText="Click to take a picture"
+          onCameraOpen1={finishPicture1}
+          onCameraOpen2={finishPicture2}
+          onCameraOpen3={finishPicture3}
+          onUpload={() => {
+            doFinish();
+            setFinishModal(false);
+          }}
+          onClose={closeFinishModal}
+          photoDisplay1={finishPict1}
+          photoDisplay2={finishPict2}
+          photoDisplay3={finishPict3}
         />
       </Modal>
     </SafeAreaView>

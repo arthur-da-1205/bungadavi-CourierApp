@@ -27,7 +27,7 @@ const DoneScreen = ({data, navigation}) => {
     if (bearerToken) {
       dispatch(getAssignData(bearerToken, uuid));
     }
-  }, [bearerToken]);
+  }, [bearerToken, dispatch, uuid]);
   return (
     <SafeAreaView style={styles.container}>
       <Header headerTitle="Your Task" headerSubtitle="Finished task" />
