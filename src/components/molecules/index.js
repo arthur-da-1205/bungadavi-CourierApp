@@ -8,6 +8,8 @@ import AcceptedModal from './AcceptedModal';
 import UploadPictModal from './UploadPictModal';
 import TopBarNavigation from './TopBarNavigation';
 import FinishModal from './FinishModal';
+import FinishUploadModal from './FinishUploadModal';
+import ReturnUploadModal from './ReturnUploadModal';
 
 export {
   BottomNavigator,
@@ -20,4 +22,6 @@ export {
   UploadPictModal,
   TopBarNavigation,
   FinishModal,
+  FinishUploadModal,
+  ReturnUploadModal,
 };

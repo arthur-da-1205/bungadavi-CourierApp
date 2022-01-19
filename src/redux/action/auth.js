@@ -3,7 +3,7 @@ import {storeData} from '../../utils/storage';
 import {toastMessage} from '../../utils/toastMessage';
 import {setLoading} from './global';
 
-export const signInAction = (form, navigation) => dispatch => {
+export const signInAction = (form, deviceToken, navigation) => dispatch => {
   dispatch(setLoading(true));
   API_HOST.post('/login', form)
     .then(res => {
@@ -23,6 +23,20 @@ export const signInAction = (form, navigation) => dispatch => {
       storeData('TOKEN', {value: token});
       storeData('USER_PROFILE', profile);
 
+      const courierUuid = res.data.data[0].uuid;
+      const dataToken = new FormData();
+      dataToken.append('courier_uuid', courierUuid);
+      dataToken.append('fcm', deviceToken);
+
+      // API_HOST.put('/add_fcm', dataToken, {
+      //   headers: {
+      //     Authorization: `Bearer ${token}`,
+      //   },
+      // })
+      //   .then(response => {})
+      //   .catch(err => {
+      //     toastMessage(err, 'danger');
+      //   });
       navigation.reset({index: 0, routes: [{name: 'MainApp'}]});
     })
     .catch(err => {

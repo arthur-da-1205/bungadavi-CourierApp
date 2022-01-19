@@ -1,23 +1,23 @@
 import React, {useEffect, useState} from 'react';
 import {Modal, ScrollView, StyleSheet, SafeAreaView, View} from 'react-native';
 import {launchCamera} from 'react-native-image-picker';
-import {useDispatch} from 'react-redux';
 
 import {
   AcceptedModal,
   Button,
   DetailTransactionSection,
   FinishModal,
+  FinishUploadModal,
   Header,
   MessageDetailSection,
   ProductCard,
   RecepientDetailSection,
+  ReturnUploadModal,
   Space,
   UploadPictModal,
 } from '../../components';
 import {API_HOST} from '../../config';
-import {courierStatusReducer} from '../../redux/reducer/courierStatus';
-import {useForm} from '../../utils';
+import {toastMessage} from '../../utils';
 import {getData} from '../../utils/storage';
 
 const DetailScreen = ({route, navigation}) => {
@@ -27,6 +27,8 @@ const DetailScreen = ({route, navigation}) => {
   const [acceptModal, setAcceptModal] = useState(false);
   const [uploadModal, setUploadModal] = useState(false);
   const [finishModal, setFinishModal] = useState(false);
+  const [finishUploadModal, setFinishUploadModal] = useState(false);
+  const [returnUploadModal, setReturnUploadModal] = useState(false);
 
   const [photo1, setPhoto1] = useState('');
   const [photo2, setPhoto2] = useState('');
@@ -35,7 +37,6 @@ const DetailScreen = ({route, navigation}) => {
   const [image2, setImage2] = useState('');
   const [image3, setImage3] = useState('');
 
-  const [courierUuid, setCourierUuid] = useState('');
   const [token, setToken] = useState('');
   const [detail, setDetail] = useState(null);
 
@@ -45,6 +46,9 @@ const DetailScreen = ({route, navigation}) => {
   const [finishImg1, setFinishImg1] = useState('');
   const [finishImg2, setFinishImg2] = useState('');
   const [finishImg3, setFinishImg3] = useState('');
+
+  const [returnPict, setReturnPict] = useState('');
+  const [returnDisplayPict, setReturnDisplayPict] = useState('');
 
   const bearerToken = token.value;
   useEffect(() => {
@@ -61,14 +65,15 @@ const DetailScreen = ({route, navigation}) => {
           setDetail(res.data.msg[0]);
         })
         .catch(err => {
-          console.log(err);
+          // console.log(err);
+          toastMessage(err, 'danger');
         });
     }
   }, [bearerToken, delivery_number_assignment]);
 
   const doAccept = async () => {
     var bodyFormData = new FormData();
-    bodyFormData.append('status_assignment', 'ACCEPT');
+    bodyFormData.append('status_assignment', 'Accept');
     bodyFormData.append(
       'delivery_number_assignment',
       delivery_number_assignment,
@@ -83,10 +88,36 @@ const DetailScreen = ({route, navigation}) => {
     })
       .then(res => {
         // dispatch({type: 'SET_STATUS', value: res.data.msg});
-        setStatus('ACCEPT');
+        setStatus('Accept');
       })
       .catch(err => {
-        console.log(err);
+        // console.log(err);
+        toastMessage(err, 'danger');
+      });
+  };
+
+  const doReject = async () => {
+    var bodyFormData = new FormData();
+    bodyFormData.append('status_assignment', 'Reject');
+    bodyFormData.append(
+      'delivery_number_assignment',
+      delivery_number_assignment,
+    );
+    bodyFormData.append('courier_uuid', uuid);
+    bodyFormData.append('status_order_trx', 'Reject by Courier');
+    API_HOST.put('/change_status_assignment', bodyFormData, {
+      headers: {
+        Authorization: `Bearer ${bearerToken}`,
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+      .then(res => {
+        // dispatch({type: 'SET_STATUS', value: res.data.msg});
+        navigation.goBack('AssignOrderScreen');
+      })
+      .catch(err => {
+        // console.log(err);
+        toastMessage(err, 'danger');
       });
   };
 
@@ -138,7 +169,7 @@ const DetailScreen = ({route, navigation}) => {
 
   const doUpload = () => {
     var bodyForm = new FormData();
-    bodyForm.append('status_assignment', 'ON-DELIVERY');
+    bodyForm.append('status_assignment', 'On Delivery');
     bodyForm.append('delivery_number_assignment', delivery_number_assignment);
     bodyForm.append('courier_uuid', uuid);
     bodyForm.append('status_order_trx', 'On Delivery');
@@ -155,12 +186,13 @@ const DetailScreen = ({route, navigation}) => {
     })
       .then(res => {
         // dispatch({type: 'SET_STATUS', value: res.data.msg});
-        console.log(res);
-        console.log(bodyForm);
-        navigation.replace('OnDeliveryScreen');
+        // console.log(res);
+        // console.log(bodyForm);
+        setFinishUploadModal(true);
       })
       .catch(err => {
-        console.log(err);
+        // console.log(err);
+        toastMessage(err, 'danger');
       });
   };
 
@@ -210,6 +242,22 @@ const DetailScreen = ({route, navigation}) => {
     });
   };
 
+  const returnPicture = () => {
+    launchCamera({quality: 0.3, maxHeight: 200, maxWidth: 200}, response => {
+      if (response.didCancel || response.error) {
+        return;
+      }
+      const source = {uri: response.assets[0].uri};
+      const dataImage = {
+        uri: response.assets[0].uri,
+        type: response.assets[0].type,
+        name: response.assets[0].fileName,
+      };
+      setReturnDisplayPict(source);
+      setReturnPict(dataImage);
+    });
+  };
+
   var bodyDataDump = new FormData();
   bodyDataDump.append('od_uuid', detail?.order_transactions_uuid);
   bodyDataDump.append('ds_uuid', detail?.delivery_schedule_uuid);
@@ -226,7 +274,7 @@ const DetailScreen = ({route, navigation}) => {
   bodyDataDump.append('img', finishImg2);
   bodyDataDump.append('img', finishImg3);
 
-  console.log(bodyDataDump);
+  // console.log(bodyDataDump);
   const doFinish = () => {
     if (bodyDataDump) {
       API_HOST.post('finish_order', bodyDataDump, {
@@ -237,9 +285,9 @@ const DetailScreen = ({route, navigation}) => {
       })
         .then(res => {
           // dispatch({type: 'SET_STATUS', value: res.data.msg});
-          console.log(res);
+          // console.log(res);
           var bodyForm = new FormData();
-          bodyForm.append('status_assignment', 'FINISH');
+          bodyForm.append('status_assignment', 'Finish');
           bodyForm.append(
             'delivery_number_assignment',
             delivery_number_assignment,
@@ -256,31 +304,29 @@ const DetailScreen = ({route, navigation}) => {
           })
             .then(response => {
               // dispatch({type: 'SET_STATUS', value: res.data.msg});
-              console.log(response);
-              console.log(bodyForm);
-              navigation.replace('OnDeliveryScreen');
+              // console.log(response);
+              // console.log(bodyForm);
+              navigation.replace('DoneScreen');
             })
             .catch(err => {
-              console.log(err);
+              // console.log(err);
+              toastMessage(err, 'danger');
             });
         })
         .catch(err => {
-          console.log(err);
+          // console.log(err);
+          toastMessage(err, 'danger');
         });
     }
   };
 
   useEffect(() => {
-    getData('USER_PROFILE').then(res => {
-      setCourierUuid(res.uuid);
-    });
-
     getData('TOKEN').then(res => {
       setToken(res);
     });
   }, []);
 
-  const handleModaConfirm = () => {
+  const handleModalConfirm = () => {
     setAcceptModal(true);
   };
   const handleUploaModal = () => {
@@ -298,22 +344,30 @@ const DetailScreen = ({route, navigation}) => {
     setFinishModal(false);
   };
 
+  const handleReturnUpload = () => {
+    setReturnUploadModal(true);
+  };
+
+  const closeReturnUploadModal = () => {
+    setReturnUploadModal(false);
+  };
+
   const renderButton = () => {
     switch (status) {
-      case 'ASSIGNED':
+      case 'Assigned':
         return (
           <>
             <Button
               labelBtn="Accept"
-              onPress={handleModaConfirm}
+              onPress={handleModalConfirm}
               btnColor="#21CC9E"
             />
             <Space height={8} />
-            <Button labelBtn="Reject" onPress={() => {}} btnColor="#B4B3BB" />
+            <Button labelBtn="Reject" onPress={doReject} btnColor="#B4B3BB" />
           </>
         );
 
-      case 'ACCEPT':
+      case 'Accept':
         return (
           <>
             <Button
@@ -332,7 +386,7 @@ const DetailScreen = ({route, navigation}) => {
           </>
         );
 
-      case 'ON-DELIVERY':
+      case 'On Delivery':
         return (
           <>
             <Button
@@ -343,7 +397,7 @@ const DetailScreen = ({route, navigation}) => {
             <Space height={10} />
             <Button
               labelBtn="RETURNED"
-              // onPress={handleUploaModal}
+              onPress={handleReturnUpload}
               btnColor="#EE3072"
             />
           </>
@@ -414,6 +468,17 @@ const DetailScreen = ({route, navigation}) => {
           photoDisplay3={photo3}
         />
       </Modal>
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={finishUploadModal}>
+        <FinishUploadModal
+          onAgree={() => {
+            setFinishUploadModal(false);
+            navigation.replace('AssignOrderScreen');
+          }}
+        />
+      </Modal>
       <Modal animationType="fade" transparent={true} visible={finishModal}>
         <FinishModal
           bodyText="Click to take a picture"
@@ -428,6 +493,20 @@ const DetailScreen = ({route, navigation}) => {
           photoDisplay1={finishPict1}
           photoDisplay2={finishPict2}
           photoDisplay3={finishPict3}
+        />
+      </Modal>
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={returnUploadModal}>
+        <ReturnUploadModal
+          bodyText="Click to Take a Picture"
+          onUpload={() => {
+            console.log('upload');
+          }}
+          onClose={closeReturnUploadModal}
+          onCameraOpen={returnPicture}
+          photoDisplay={returnDisplayPict}
         />
       </Modal>
     </SafeAreaView>

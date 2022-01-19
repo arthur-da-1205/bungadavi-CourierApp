@@ -11,7 +11,7 @@ import Router from './router';
 import {LoadingAnimation} from './components';
 import store from './redux/store';
 import {Alert} from 'react-native';
-import {getData} from './utils/storage';
+import {getData, storeData} from './utils/storage';
 
 const MainApp = () => {
   const {isLoading} = useSelector(state => state.globalReducer);
@@ -33,7 +33,15 @@ const App = () => {
     setRegisterToken(NotificationHandler.token);
     setFcmRegistered(true);
   };
-  console.log('FCM Token: ', registerToken);
+
+  // useEffect(() => {
+  //   storeData('DEVICE_TOKEN', {value: registerToken});
+  // }, []);
+  if (registerToken) {
+    storeData('DEVICE_TOKEN', registerToken);
+  }
+
+  console.log(registerToken);
   const onNotif = notif => {
     Alert.alert(notif.title, notif.message);
   };

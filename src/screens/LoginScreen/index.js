@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -12,6 +12,7 @@ import {Line, Logo} from '../../assets';
 import {Button, InputField, Space} from '../../components';
 import {setLoading, signInAction} from '../../redux/action';
 import {useForm} from '../../utils';
+import {getData} from '../../utils/storage';
 
 const LoginScreen = ({navigation}) => {
   const [form, setForm] = useForm({
@@ -19,14 +20,19 @@ const LoginScreen = ({navigation}) => {
     password: '',
     expiredToken: '9999h',
   });
-
+  const [deviceToken, setDeviceToken] = useState('');
   const dispatch = useDispatch();
 
-  useEffect(() => {});
+  useEffect(() => {
+    getData('DEVICE_TOKEN').then(res => {
+      setDeviceToken(res);
+    });
+  });
 
   const handleSignin = () => {
+    console.log(deviceToken);
     console.log(form);
-    dispatch(signInAction(form, navigation));
+    dispatch(signInAction(form, deviceToken, navigation));
   };
 
   return (

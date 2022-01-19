@@ -38,12 +38,12 @@ OrderCard.propTypes = {
   date: PropTypes.string.isRequired,
   timeSlot: PropTypes.string.isRequired,
   statusTask: PropTypes.oneOf([
-    'ASSIGNED',
-    'ACCEPT',
-    'rejected',
-    'ON-DELIVERY',
-    'FINISH',
-    'returned',
+    'Assigned',
+    'Accept',
+    'Rejected',
+    'On Delivery',
+    'Finish',
+    'Returned',
   ]).isRequired,
 };
 

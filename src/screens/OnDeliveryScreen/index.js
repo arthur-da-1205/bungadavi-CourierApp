@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {SafeAreaView, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
+
 import {productDummy} from '../../assets';
 import {Header, OrderCard, Space} from '../../components';
 import {getAssignData} from '../../redux/action';
@@ -39,7 +40,7 @@ const OnDeliveryScreen = ({data, navigation}) => {
         {task ? (
           task.map((item, index) => {
             console.log(item.delivery_number_assignment);
-            if (item.status_assignment === 'ON-DELIVERY') {
+            if (item.status_assignment === 'On Delivery') {
               return (
                 <OrderCard
                   key={index}

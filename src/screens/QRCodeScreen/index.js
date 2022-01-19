@@ -1,6 +1,7 @@
-import Barcode from '@kichiyaki/react-native-barcode-generator';
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import Barcode from '@kichiyaki/react-native-barcode-generator';
+
 import QRCode from 'react-native-qrcode-svg';
 import {Space} from '../../components';
 

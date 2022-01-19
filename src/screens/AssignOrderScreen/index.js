@@ -46,8 +46,8 @@ const AssignOrderScreen = ({data, navigation}) => {
           task.map((item, index) => {
             console.log(item.delivery_number_assignment);
             if (
-              item.status_assignment === 'ASSIGNED' ||
-              item.status_assignment === 'ACCEPT'
+              item.status_assignment === 'Assigned' ||
+              item.status_assignment === 'Accept'
             ) {
               return (
                 <OrderCard

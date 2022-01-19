@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
 import {View, StyleSheet} from 'react-native';
+
 import {Space} from '../../components';
 import {Logo} from '../../assets';
 import {getData} from '../../utils/storage';

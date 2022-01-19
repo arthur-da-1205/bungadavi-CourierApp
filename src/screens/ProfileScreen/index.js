@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import {IcProfileOff, profileImage} from '../../assets';
 import {Button, Space} from '../../components';
 import {getData} from '../../utils/storage';
@@ -21,12 +22,12 @@ const ProfileScreen = ({navigation}) => {
       setPhoto({uri: res.photo});
     });
   }, []);
-  console.log(photo);
+  // console.log(photo);
 
   return (
     <View style={styles.mainContainer}>
       <View style={styles.pictContainer}>
-        <Image source={{photo}} />
+        {photo ? <Image source={{photo}} /> : <Image source={profileImage} />}
         <Text style={styles.name}>{profile.fullName}</Text>
         <Text style={styles.couirerText}>Courier</Text>
       </View>
