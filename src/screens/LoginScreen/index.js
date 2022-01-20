@@ -7,6 +7,7 @@ import {
   View,
 } from 'react-native';
 import {useDispatch} from 'react-redux';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 import {Line, Logo} from '../../assets';
 import {Button, InputField, Space} from '../../components';
@@ -37,38 +38,42 @@ const LoginScreen = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.mainContainer}>
-      <View style={styles.pageContainer}>
-        <Logo />
-        <View style={styles.textLogoContainer}>
-          <Line />
-          <Text style={styles.textLogo}>Courier App</Text>
-          <Line />
+      <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.header}>
+          <Logo />
+          <View style={styles.textLogoContainer}>
+            <Line />
+            <Text style={styles.textLogo}>Courier App</Text>
+            <Line />
+          </View>
         </View>
-      </View>
-      <Space height={40} />
-      <View>
-        <InputField
-          label="Username"
-          placeholder="Your username"
-          value={form.username}
-          onChangeText={value => setForm('username', value)}
-        />
         <Space height={50} />
-        <InputField
-          label="Password"
-          placeholder="Your password"
-          value={form.password}
-          onChangeText={value => setForm('password', value)}
-          secureTextEntry
-        />
-        <Space height={5} />
-        <TouchableOpacity>
-          <Text style={styles.forgotPass}>Forgot your password?</Text>
-        </TouchableOpacity>
-      </View>
-      <Space height={90} />
-      <Button labelBtn="Login" onPress={handleSignin} />
-      <View style={styles.space} />
+        <View style={styles.inputContainer}>
+          <InputField
+            iconName="account-outline"
+            placeholder="Your username"
+            value={form.username}
+            onChangeText={value => setForm('username', value)}
+          />
+          <Space height={50} />
+          <InputField
+            iconName="lock-outline"
+            placeholder="Your password"
+            value={form.password}
+            onChangeText={value => setForm('password', value)}
+            secureTextEntry
+          />
+          <Space height={10} />
+          <TouchableOpacity style={styles.forgotContainer}>
+            <Text style={styles.forgotPass}>Forgot your password?</Text>
+          </TouchableOpacity>
+        </View>
+        <Space height={90} />
+        <View style={{flex: 3}}>
+          <Button labelBtn="Login" onPress={handleSignin} />
+        </View>
+        <View style={styles.space} />
+      </KeyboardAwareScrollView>
       <View style={styles.versionContainer}>
         <Text style={styles.versionText}>Bungadavi Mobile v.2.0</Text>
       </View>
@@ -79,11 +84,15 @@ const LoginScreen = ({navigation}) => {
 export default LoginScreen;
 
 const styles = StyleSheet.create({
-  mainContainer: {paddingHorizontal: 40, flex: 1},
-  pageContainer: {
-    justifyContent: 'center',
+  mainContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    paddingHorizontal: 20,
+    paddingVertical: 70,
+  },
+  header: {
+    flex: 1,
     alignItems: 'center',
-    paddingTop: 60,
   },
   textLogoContainer: {
     paddingTop: 40,
@@ -97,6 +106,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     fontSize: 13,
   },
+  inputContainer: {
+    flex: 2,
+    justifyContent: 'center',
+  },
+  forgotContainer: {flex: 0.5},
   forgotPass: {
     fontFamily: 'Poppins-Regular',
     color: '#7D8797',
@@ -108,7 +122,7 @@ const styles = StyleSheet.create({
   versionContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    bottom: 10,
+    bottom: 0,
     position: 'relative',
   },
   versionText: {fontFamily: 'Poppins-Light', fontSize: 12},
