@@ -13,12 +13,7 @@ const ReturnUploadModal = ({
 }) => {
   const renderUploadBtn = () => {
     if (photoDisplay) {
-      return (
-        <>
-          <Text>{labelUpload}</Text>
-          <Space width={8} />
-        </>
-      );
+      return <Text>{labelUpload}</Text>;
     } else {
       return <Text />;
     }
@@ -46,7 +41,10 @@ const ReturnUploadModal = ({
             </View>
             <Space height={16} />
             <View style={styles.btnContainer}>
-              {renderUploadBtn()}
+              <TouchableOpacity onPress={onUpload}>
+                {renderUploadBtn()}
+              </TouchableOpacity>
+              <Space width={10} />
               <TouchableOpacity onPress={onClose}>
                 <Text>{labelClose}</Text>
               </TouchableOpacity>

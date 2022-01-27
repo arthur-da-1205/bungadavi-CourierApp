@@ -6,7 +6,6 @@ import RecepientDetailSection from './RecepientDetailSection';
 import MessageDetailSection from './MessageDetailSection';
 import AcceptedModal from './AcceptedModal';
 import UploadPictModal from './UploadPictModal';
-import TopBarNavigation from './TopBarNavigation';
 import FinishModal from './FinishModal';
 import FinishUploadModal from './FinishUploadModal';
 import ReturnUploadModal from './ReturnUploadModal';
@@ -20,7 +19,6 @@ export {
   MessageDetailSection,
   AcceptedModal,
   UploadPictModal,
-  TopBarNavigation,
   FinishModal,
   FinishUploadModal,
   ReturnUploadModal,

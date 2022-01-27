@@ -21,7 +21,7 @@ const HomeScreen = ({navigation}) => {
 
   const [deviceToken, setDeviceToken] = useState('');
 
-  const [counterAssign, setCounterAssign] = useState('');
+  const [counterAssign, setCounterAssign] = useState(0);
   const [counterOnDelivery, setCounterOnDelivery] = useState(0);
   const [counterFinish, setCounterFinish] = useState(0);
 
@@ -37,7 +37,6 @@ const HomeScreen = ({navigation}) => {
       setUsername(res.fullName);
       setCourierUuid(res.uuid);
     });
-
     getData('TOKEN').then(res => {
       setBearerToken(res);
     });
@@ -86,7 +85,49 @@ const HomeScreen = ({navigation}) => {
       .catch(err => {
         console.log(err);
       });
-  }, [courierUuid, token]);
+
+    const willFocusSubscription = navigation.addListener('focus', () => {
+      API_HOST.get('/status_assigned', {
+        params: {courier_uuid: courierUuid},
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then(res => {
+          setCounterAssign(res.data.msg[0].ASSIGNED_TOTAL);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+
+      API_HOST.get('/status_on_delivery', {
+        params: {courier_uuid: courierUuid},
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then(res => {
+          setCounterOnDelivery(res.data.msg[0].ON_DELIVERY_TOTAL);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+
+      API_HOST.get('/status_finish', {
+        params: {courier_uuid: courierUuid},
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then(res => {
+          setCounterFinish(res.data.msg[0].FINISH_TOTAL);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    });
+    return willFocusSubscription;
+  }, [courierUuid, token, navigation]);
   // useEffect(() => {
   //   API_HOST.put('/add_fcm', registerToken, {
   //     headers: {
@@ -117,26 +158,44 @@ const HomeScreen = ({navigation}) => {
           <TouchableOpacity
             style={styles.btnMenu}
             onPress={() => navigation.navigate('AssignOrderScreen')}>
-            <Image source={icAssign} />
-            <Text style={styles.labelBtn}>New Assign</Text>
-            <Text style={styles.lableCounter}>{counterAssign}</Text>
+            <View style={styles.icBtnContainer}>
+              <Image source={icAssign} />
+            </View>
+            <View style={styles.labelContainer}>
+              <Text style={styles.labelBtn}>New Assign</Text>
+            </View>
+            <View style={styles.countContainer}>
+              <Text style={styles.lableCounter}>{counterAssign}</Text>
+            </View>
           </TouchableOpacity>
           <Space height={20} />
 
           <TouchableOpacity
             style={styles.btnMenu}
             onPress={() => navigation.navigate('OnDeliveryScreen')}>
-            <Image source={icDeliver} />
-            <Text style={styles.labelBtn}>On Delivery</Text>
-            <Text style={styles.lableCounter}>{counterOnDelivery}</Text>
+            <View style={styles.icBtnContainer}>
+              <Image source={icDeliver} />
+            </View>
+            <View style={styles.labelContainer}>
+              <Text style={styles.labelBtn}>On Delivery</Text>
+            </View>
+            <View style={styles.countContainer}>
+              <Text style={styles.lableCounter}>{counterOnDelivery}</Text>
+            </View>
           </TouchableOpacity>
           <Space height={20} />
           <TouchableOpacity
             style={styles.btnMenu}
             onPress={() => navigation.navigate('DoneScreen')}>
-            <Image source={icDone} />
-            <Text style={styles.labelBtn}>Done</Text>
-            <Text style={styles.lableCounter}>{counterFinish}</Text>
+            <View style={styles.icBtnContainer}>
+              <Image source={icDone} />
+            </View>
+            <View style={styles.labelContainer}>
+              <Text style={styles.labelBtn}>Done Delivery</Text>
+            </View>
+            <View style={styles.countContainer}>
+              <Text style={styles.lableCounter}>{counterFinish}</Text>
+            </View>
           </TouchableOpacity>
         </View>
       </View>
@@ -177,26 +236,36 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   btnMenu: {
+    flex: 1,
     backgroundColor: '#FFFFFF',
     flexDirection: 'row',
     borderRadius: 45,
     alignItems: 'center',
     paddingVertical: 12,
     paddingLeft: 32,
+    paddingHorizontal: 32,
   },
+  icBtnContainer: {flex: 1},
+  labelContainer: {flex: 2},
   labelBtn: {
     fontFamily: 'Poppins-Regular',
     fontSize: 18,
     color: '#000',
     fontWeight: 'bold',
-    marginLeft: 50,
+    marginLeft: 5,
+  },
+  countContainer: {
+    flex: 0.5,
+    borderRadius: 5,
+    borderColor: '#000',
+    borderWidth: 1,
+    alignItems: 'center',
   },
   lableCounter: {
     fontFamily: 'Poppins-Regular',
     fontSize: 20,
     color: '#000',
     fontWeight: 'bold',
-    marginLeft: 70,
   },
   ilusContainer: {position: 'absolute', paddingLeft: 24, paddingTop: 24},
   content: {paddingHorizontal: 14},

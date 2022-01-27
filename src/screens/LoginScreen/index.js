@@ -69,7 +69,7 @@ const LoginScreen = ({navigation}) => {
           </TouchableOpacity>
         </View>
         <Space height={90} />
-        <View style={{flex: 3}}>
+        <View style={styles.btnContainer}>
           <Button labelBtn="Login" onPress={handleSignin} />
         </View>
         <View style={styles.space} />
@@ -118,6 +118,7 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
     textDecorationLine: 'underline',
   },
+  btnContainer: {flex: 1},
   space: {flex: 1},
   versionContainer: {
     alignItems: 'center',

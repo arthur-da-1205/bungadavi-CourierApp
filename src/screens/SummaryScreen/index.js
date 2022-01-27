@@ -1,34 +1,56 @@
-import React from 'react';
-import {Text} from 'react-native';
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import AllTask from './AllTask';
-import FinishedTask from './FinishedTask';
-import RejectedTask from './RejectedTask';
+import React, {useState} from 'react';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Picker} from '@react-native-picker/picker';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {TopBarNavigation} from '../../components';
+import {Space} from '../../components';
 
 const SummaryScreen = () => {
-  const TopNavigation = createMaterialTopTabNavigator();
+  const [selectedPeriode, setSelectedPeriode] = useState();
 
   return (
-    <TopNavigation.Navigator tabBar={props => <TopBarNavigation {...props} />}>
-      <TopNavigation.Screen
-        name="All Task"
-        component={AllTask}
-        options={{tabBarShowLabel: false}}
-      />
-      <TopNavigation.Screen
-        name="Finished Task"
-        component={FinishedTask}
-        options={{tabBarShowLabel: false}}
-      />
-      <TopNavigation.Screen
-        name="Rejected Task"
-        component={RejectedTask}
-        options={{tabBarShowLabel: false}}
-      />
-    </TopNavigation.Navigator>
+    <SafeAreaView style={styles.mainContainer}>
+      <View style={styles.filterContainer}>
+        <View style={styles.pickerBox}>
+          <Picker
+            selectedValue={selectedPeriode}
+            onValueChange={(itemValue, itemIndex) =>
+              setSelectedPeriode(itemValue)
+            }>
+            <Picker.Item label="- Periode -" />
+            <Picker.Item label="Satu Pekan" value="one_week" />
+            <Picker.Item label="Satu Bulan" value="one_month" />
+          </Picker>
+        </View>
+        <Space width={8} />
+        <TouchableOpacity style={styles.btnContainer}>
+          <Icon name="filter-variant" size={35} color="#FFF" />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.contentContainer}>
+        <Text>Content</Text>
+      </View>
+    </SafeAreaView>
   );
 };
 
 export default SummaryScreen;
+
+const styles = StyleSheet.create({
+  mainContainer: {flex: 1, backgroundColor: 'white', padding: 10},
+  filterContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 14,
+  },
+  pickerBox: {flex: 3, borderWidth: 0.3, borderRadius: 12},
+  btnContainer: {
+    flex: 0.5,
+    alignItems: 'center',
+    borderRadius: 8,
+    backgroundColor: '#FF61C7',
+  },
+  contentContainer: {flex: 3},
+});

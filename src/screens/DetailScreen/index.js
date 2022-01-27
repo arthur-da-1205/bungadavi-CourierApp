@@ -177,23 +177,25 @@ const DetailScreen = ({route, navigation}) => {
     bodyForm.append('img', image2);
     bodyForm.append('img', image3);
 
-    API_HOST.put('change_status_assignment', bodyForm, {
-      headers: {
-        Authorization: `Bearer ${bearerToken}`,
-        'Content-Type': 'applications/json',
-        Accept: 'applications/json',
-      },
-    })
-      .then(res => {
-        // dispatch({type: 'SET_STATUS', value: res.data.msg});
-        // console.log(res);
-        // console.log(bodyForm);
-        setFinishUploadModal(true);
+    if (bearerToken) {
+      API_HOST.put('change_status_assignment', bodyForm, {
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+          'Content-Type': 'applications/json',
+          Accept: 'applications/json',
+        },
       })
-      .catch(err => {
-        // console.log(err);
-        toastMessage(err, 'danger');
-      });
+        .then(res => {
+          // dispatch({type: 'SET_STATUS', value: res.data.msg});
+          //console.log(res);
+          // console.log(bodyForm);
+          setFinishUploadModal(true);
+        })
+        .catch(err => {
+          console.log(err);
+          //toastMessage(err, 'danger');
+        });
+    }
   };
 
   const finishPicture1 = () => {
@@ -256,6 +258,35 @@ const DetailScreen = ({route, navigation}) => {
       setReturnDisplayPict(source);
       setReturnPict(dataImage);
     });
+  };
+
+  const doReturn = () => {
+    var bodyForm = new FormData();
+    bodyForm.append('status_assignment', 'Return');
+    bodyForm.append('delivery_number_assignment', delivery_number_assignment);
+    bodyForm.append('courier_uuid', uuid);
+    bodyForm.append('status_order_trx', 'Returned');
+    bodyForm.append('img', returnPict);
+
+    if (bearerToken) {
+      API_HOST.put('change_status_assignment', bodyForm, {
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+          'Content-Type': 'applications/json',
+          Accept: 'applications/json',
+        },
+      })
+        .then(res => {
+          // dispatch({type: 'SET_STATUS', value: res.data.msg});
+          //console.log(res);
+          // console.log(bodyForm);
+          navigation.replace('MainApp');
+        })
+        .catch(err => {
+          console.log(err);
+          //toastMessage(err, 'danger');
+        });
+    }
   };
 
   var bodyDataDump = new FormData();
@@ -488,6 +519,7 @@ const DetailScreen = ({route, navigation}) => {
           onUpload={() => {
             doFinish();
             setFinishModal(false);
+            navigation.replace('MainApp');
           }}
           onClose={closeFinishModal}
           photoDisplay1={finishPict1}
@@ -502,7 +534,8 @@ const DetailScreen = ({route, navigation}) => {
         <ReturnUploadModal
           bodyText="Click to Take a Picture"
           onUpload={() => {
-            console.log('upload');
+            doReturn();
+            setReturnUploadModal(false);
           }}
           onClose={closeReturnUploadModal}
           onCameraOpen={returnPicture}
