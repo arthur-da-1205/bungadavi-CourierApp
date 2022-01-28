@@ -5,10 +5,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {IcProfileOff, profileImage} from '../../assets';
 import {Button, Space} from '../../components';
 import {getData} from '../../utils/storage';
+import {API_HOST} from '../../config';
 
 const ProfileScreen = ({navigation}) => {
   const [profile, setProfile] = useState('');
   const [photo, setPhoto] = useState('');
+  const [token, setToken] = useState('');
 
   const handleSginOut = () => {
     AsyncStorage.removeItem('TOKEN').then(() => {
@@ -19,10 +21,26 @@ const ProfileScreen = ({navigation}) => {
   useEffect(() => {
     getData('USER_PROFILE').then(res => {
       setProfile(res);
-      setPhoto({uri: res.photo});
+      setPhoto(res.photo);
     });
-  }, []);
-  // console.log(photo);
+    getData('TOKEN').then(res => {
+      setToken(res.token);
+    });
+
+    // API_HOST.get('/get_images', {
+    //   params: {get_images: photo},
+    //   headers: {
+    //     Authorization: `Bearer ${token}`,
+    //   },
+    // })
+    //   .then(res => {
+    //     console.log(res);
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
+  }, [photo, token]);
+  console.log(photo);
 
   return (
     <View style={styles.mainContainer}>

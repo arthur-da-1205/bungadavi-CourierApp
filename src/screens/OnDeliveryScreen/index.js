@@ -27,8 +27,12 @@ const OnDeliveryScreen = ({data, navigation}) => {
   useEffect(() => {
     if (bearerToken) {
       dispatch(getAssignData(bearerToken, uuid));
+      const willFocusSubscription = navigation.addListener('focus', () => {
+        dispatch(getAssignData(bearerToken, uuid));
+      });
+      return willFocusSubscription;
     }
-  }, [bearerToken, uuid, dispatch]);
+  }, [bearerToken, uuid, dispatch, navigation]);
 
   return (
     <SafeAreaView style={styles.contentContainer}>

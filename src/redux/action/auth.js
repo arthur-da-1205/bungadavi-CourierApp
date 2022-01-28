@@ -33,9 +33,12 @@ export const signInAction = (form, deviceToken, navigation) => dispatch => {
       //     Authorization: `Bearer ${token}`,
       //   },
       // })
-      //   .then(response => {})
+      //   .then(response => {
+      //     console.log(response);
+      //   })
       //   .catch(err => {
-      //     toastMessage(err, 'danger');
+      //     // toastMessage(err, 'danger');
+      //     console.log(err);
       //   });
       navigation.reset({index: 0, routes: [{name: 'MainApp'}]});
     })

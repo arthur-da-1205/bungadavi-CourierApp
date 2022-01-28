@@ -27,8 +27,12 @@ const DoneScreen = ({data, navigation}) => {
   useEffect(() => {
     if (bearerToken) {
       dispatch(getAssignData(bearerToken, uuid));
+      const willFocusSubscription = navigation.addListener('focus', () => {
+        dispatch(getAssignData(bearerToken, uuid));
+      });
+      return willFocusSubscription;
     }
-  }, [bearerToken, dispatch, uuid]);
+  }, [bearerToken, uuid, dispatch, navigation]);
   return (
     <SafeAreaView style={styles.container}>
       <Header headerTitle="Your Task" headerSubtitle="Finished task" />

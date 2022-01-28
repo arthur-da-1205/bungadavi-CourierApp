@@ -11,7 +11,7 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 import {Line, Logo} from '../../assets';
 import {Button, InputField, Space} from '../../components';
-import {setLoading, signInAction} from '../../redux/action';
+import {signInAction} from '../../redux/action';
 import {useForm} from '../../utils';
 import {getData} from '../../utils/storage';
 

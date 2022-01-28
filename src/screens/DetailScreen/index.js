@@ -454,8 +454,8 @@ const DetailScreen = ({route, navigation}) => {
           invoice={detail?.code_order_transaction}
           timeslot={detail?.time_slot_name}
           date={detail?.delivery_date}
-          from="Here"
-          to="There"
+          from={detail?.from_message_order}
+          to={detail?.to_message_order}
         />
         <Space height={16} />
         <RecepientDetailSection
@@ -463,15 +463,16 @@ const DetailScreen = ({route, navigation}) => {
           name={detail?.receiver_name}
           phone={detail?.receiver_phone_number}
           address={detail?.receiver_address}
-          email="Email"
-          city="City"
+          addressDetail={detail?.receiver_address_info}
+          email={detail?.email_recepient}
+          city={detail?.receiver_city}
         />
         <Space height={16} />
         <MessageDetailSection message={detail?.card_message_message} />
         <Space height={26} />
         <View style={styles.btnContainer}>{renderButton()}</View>
       </ScrollView>
-
+      {/*Accept Modal, change from Assigned to Accept*/}
       <Modal animationType="fade" transparent={true} visible={acceptModal}>
         <AcceptedModal
           onAgree={() => {
@@ -483,6 +484,7 @@ const DetailScreen = ({route, navigation}) => {
           }}
         />
       </Modal>
+      {/*Upload Modal, change from Accept to On Delivery*/}
       <Modal animationType="fade" transparent={true} visible={uploadModal}>
         <UploadPictModal
           bodyText="Click to take a picture"
@@ -499,6 +501,7 @@ const DetailScreen = ({route, navigation}) => {
           photoDisplay3={photo3}
         />
       </Modal>
+      {/*Modal appear after upload image for change On Delivery*/}
       <Modal
         animationType="fade"
         transparent={true}
@@ -510,6 +513,7 @@ const DetailScreen = ({route, navigation}) => {
           }}
         />
       </Modal>
+      {/*Upload for Finish Modal, change from On Delivery to Finish*/}
       <Modal animationType="fade" transparent={true} visible={finishModal}>
         <FinishModal
           bodyText="Click to take a picture"
@@ -527,6 +531,7 @@ const DetailScreen = ({route, navigation}) => {
           photoDisplay3={finishPict3}
         />
       </Modal>
+      {/*Upload for Return Modal, change status to Return*/}
       <Modal
         animationType="fade"
         transparent={true}
