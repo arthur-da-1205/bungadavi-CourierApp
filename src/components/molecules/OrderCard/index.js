@@ -2,7 +2,7 @@ import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import PropTypes from 'prop-types';
 
-import {icArrowRight} from '../../../assets';
+import {icArrowRight, noImage} from '../../../assets';
 
 const OrderCard = ({
   orderInv,
@@ -15,7 +15,11 @@ const OrderCard = ({
 }) => {
   return (
     <TouchableOpacity style={styles.card} onPress={onDetail}>
-      <Image source={productImg} />
+      {productImg ? (
+        <Image source={productImg} style={styles.imgStyle} />
+      ) : (
+        <Image source={noImage} style={styles.imgStyle} />
+      )}
       <View style={styles.textContainer}>
         <Text style={styles.invText}>{orderInv}</Text>
         <Text style={styles.addressText}>{address}</Text>
@@ -56,6 +60,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 12,
   },
+  imgStyle: {width: 80, height: 76, borderRadius: 8},
   textContainer: {
     flex: 1,
     marginLeft: 12,

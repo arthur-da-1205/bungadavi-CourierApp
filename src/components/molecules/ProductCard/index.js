@@ -1,13 +1,23 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
-import {productDummy} from '../../../assets';
+import {noImage} from '../../../assets';
 
-const ProductCard = ({productName, productDesc, statusLabel, statusValue}) => {
+const ProductCard = ({
+  productImg,
+  productName,
+  productDesc,
+  statusLabel,
+  statusValue,
+}) => {
   return (
     <View style={styles.cardContainer}>
       <Text style={styles.itemTitle}>Item Ordered</Text>
       <View style={styles.contentContainer}>
-        <Image source={productDummy} />
+        {productImg ? (
+          <Image source={productImg} style={styles.imgStyle} />
+        ) : (
+          <Image source={noImage} style={styles.imgStyle} />
+        )}
         <View>
           <Text style={styles.productName}>{productName}</Text>
           <Text style={styles.productDesc}>{productDesc}</Text>
@@ -45,6 +55,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Regular',
     fontSize: 14,
   },
+  imgStyle: {width: 80, height: 77, borderRadius: 10},
   status: {
     fontFamily: 'Poppins-Regular',
     fontSize: 14,

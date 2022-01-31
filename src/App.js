@@ -3,7 +3,6 @@ import {NavigationContainer} from '@react-navigation/native';
 import 'react-native-gesture-handler';
 import {Provider, useSelector} from 'react-redux';
 import FlashMessage from 'react-native-flash-message';
-import Geolocation from '@react-native-community/geolocation';
 import {API_HOST} from './config';
 
 import NotifService from './NotifService';

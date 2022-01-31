@@ -191,7 +191,7 @@ const HomeScreen = ({navigation}) => {
               <Image source={icDone} />
             </View>
             <View style={styles.labelContainer}>
-              <Text style={styles.labelBtn}>Done Delivery</Text>
+              <Text style={styles.labelBtn}>Delivered</Text>
             </View>
             <View style={styles.countContainer}>
               <Text style={styles.lableCounter}>{counterFinish}</Text>

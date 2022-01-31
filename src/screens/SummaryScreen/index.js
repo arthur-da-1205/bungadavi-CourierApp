@@ -5,9 +5,16 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {Space} from '../../components';
+import {API_HOST} from '../../config';
 
 const SummaryScreen = () => {
   const [selectedPeriode, setSelectedPeriode] = useState();
+
+  // const hitPeriode = () => {
+  //   API_HOST.get('', {
+  //     params:
+  //   })
+  // }
 
   return (
     <SafeAreaView style={styles.mainContainer}>

@@ -50,6 +50,7 @@ const DetailScreen = ({route, navigation}) => {
   const [returnPict, setReturnPict] = useState('');
   const [returnDisplayPict, setReturnDisplayPict] = useState('');
 
+  const [imageUri, setImageUri] = useState('');
   const bearerToken = token.value;
   useEffect(() => {
     if (bearerToken) {
@@ -79,7 +80,7 @@ const DetailScreen = ({route, navigation}) => {
       delivery_number_assignment,
     );
     bodyFormData.append('courier_uuid', uuid);
-    bodyFormData.append('status_order_trx', 'Accepted by Courier');
+    bodyFormData.append('status_order_trx', 'Accept');
     API_HOST.put('/change_status_assignment', bodyFormData, {
       headers: {
         Authorization: `Bearer ${bearerToken}`,
@@ -265,7 +266,7 @@ const DetailScreen = ({route, navigation}) => {
     bodyForm.append('status_assignment', 'Return');
     bodyForm.append('delivery_number_assignment', delivery_number_assignment);
     bodyForm.append('courier_uuid', uuid);
-    bodyForm.append('status_order_trx', 'Returned');
+    bodyForm.append('status_order_trx', 'Return');
     bodyForm.append('img', returnPict);
 
     if (bearerToken) {
@@ -318,13 +319,13 @@ const DetailScreen = ({route, navigation}) => {
           // dispatch({type: 'SET_STATUS', value: res.data.msg});
           // console.log(res);
           var bodyForm = new FormData();
-          bodyForm.append('status_assignment', 'Finish');
+          bodyForm.append('status_assignment', 'Delivered');
           bodyForm.append(
             'delivery_number_assignment',
             delivery_number_assignment,
           );
           bodyForm.append('courier_uuid', uuid);
-          bodyForm.append('status_order_trx', 'Finish');
+          bodyForm.append('status_order_trx', 'Delivered');
 
           API_HOST.put('change_status_assignment', bodyForm, {
             headers: {
@@ -438,12 +439,17 @@ const DetailScreen = ({route, navigation}) => {
         return null;
     }
   };
+
+  const imageProduct = `https://dashboard.bungadavi.brits-team.com/storage/${detail?.image_main_product}`;
+  console.log(imageProduct);
+
   return (
     <SafeAreaView style={styles?.mainContainer}>
       <Header headerTitle="Detail" headerSubtitle="Your task detail" />
       <Space height={19} />
       <ScrollView>
         <ProductCard
+          productImg={{uri: imageProduct}}
           productName={detail?.name_product}
           productDesc={detail?.short_description_product}
           statusLabel="Status"

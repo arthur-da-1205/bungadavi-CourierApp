@@ -37,7 +37,8 @@ const AssignOrderScreen = ({data, navigation}) => {
       return willFocusSubscription;
     }
   }, [bearerToken, uuid, dispatch, navigation]);
-
+  const imageProduct = `https://dashboard.bungadavi.brits-team.com/storage/${task?.image_main_product}`;
+  console.log(imageProduct);
   return (
     <SafeAreaView style={styles.contentContainer}>
       <Header headerTitle="Your Task" headerSubtitle="New task assign" />
@@ -45,6 +46,7 @@ const AssignOrderScreen = ({data, navigation}) => {
         {task ? (
           task.map((item, index) => {
             console.log(item.delivery_number_assignment);
+
             if (
               item.status_assignment === 'Assigned' ||
               item.status_assignment === 'Accept'
@@ -52,7 +54,9 @@ const AssignOrderScreen = ({data, navigation}) => {
               return (
                 <OrderCard
                   key={index}
-                  productImg={productDummy}
+                  productImg={{
+                    uri: `https://dashboard.bungadavi.brits-team.com/storage/${item?.image_main_product}`,
+                  }}
                   orderInv={item.code_order_transaction}
                   address={item.address}
                   date={item.delivery_date}

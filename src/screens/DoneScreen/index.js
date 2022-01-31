@@ -40,11 +40,14 @@ const DoneScreen = ({data, navigation}) => {
         {task ? (
           task.map((item, index) => {
             console.log(item.delivery_number_assignment);
-            if (item.status_assignment === 'Finish') {
+
+            if (item.status_assignment === 'Delivered') {
               return (
                 <OrderCard
                   key={index}
-                  productImg={productDummy}
+                  productImg={{
+                    uri: `https://dashboard.bungadavi.brits-team.com/storage/${item.image_main_product}`,
+                  }}
                   orderInv={item.code_order_transaction}
                   address={item.address}
                   date={item.delivery_date}

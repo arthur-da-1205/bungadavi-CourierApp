@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {IcProfileOff, profileImage} from '../../assets';
 import {Button, Space} from '../../components';
 import {getData} from '../../utils/storage';
-import {API_HOST} from '../../config';
+// import {API_HOST} from '../../config';
 
 const ProfileScreen = ({navigation}) => {
   const [profile, setProfile] = useState('');
@@ -21,7 +21,9 @@ const ProfileScreen = ({navigation}) => {
   useEffect(() => {
     getData('USER_PROFILE').then(res => {
       setProfile(res);
-      setPhoto(res.photo);
+      setPhoto(
+        `https://dashboard.bungadavi.brits-team.com/storage/${res.photo}`,
+      );
     });
     getData('TOKEN').then(res => {
       setToken(res.token);
@@ -45,7 +47,14 @@ const ProfileScreen = ({navigation}) => {
   return (
     <View style={styles.mainContainer}>
       <View style={styles.pictContainer}>
-        {photo ? <Image source={{photo}} /> : <Image source={profileImage} />}
+        {photo ? (
+          <Image
+            source={{uri: photo}}
+            style={{width: 80, height: 80, borderRadius: 45}}
+          />
+        ) : (
+          <Image source={profileImage} />
+        )}
         <Text style={styles.name}>{profile.fullName}</Text>
         <Text style={styles.couirerText}>Courier</Text>
       </View>
