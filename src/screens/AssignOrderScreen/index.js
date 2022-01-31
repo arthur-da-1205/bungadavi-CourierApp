@@ -2,8 +2,8 @@ import React, {useEffect, useState} from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useDispatch, useSelector} from 'react-redux';
+import moment from 'moment';
 
-import {productDummy} from '../../assets';
 import {Header, OrderCard, Space} from '../../components';
 import {getAssignData} from '../../redux/action';
 import {getData} from '../../utils/storage';
@@ -15,6 +15,9 @@ const AssignOrderScreen = ({data, navigation}) => {
   const {task} = useSelector(state => state.courierAssignReducer);
   const [token, setToken] = useState('');
   const [uuid, setUuid] = useState('');
+
+  const idLocale = require('moment/locale/id');
+  moment.locale('id', idLocale);
 
   useEffect(() => {
     getData('USER_PROFILE').then(res => {
@@ -46,6 +49,7 @@ const AssignOrderScreen = ({data, navigation}) => {
         {task ? (
           task.map((item, index) => {
             console.log(item.delivery_number_assignment);
+            const date = moment(item.delivery_date).format('LL');
 
             if (
               item.status_assignment === 'Assigned' ||
@@ -59,7 +63,7 @@ const AssignOrderScreen = ({data, navigation}) => {
                   }}
                   orderInv={item.code_order_transaction}
                   address={item.address}
-                  date={item.delivery_date}
+                  date={date}
                   timeSlot={item.time_slot_name}
                   statusTask={item.status_assignment}
                   onDetail={() => navigation.navigate('DetailScreen', item)}

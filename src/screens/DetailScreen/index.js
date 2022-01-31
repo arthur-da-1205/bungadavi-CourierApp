@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React, {useEffect, useState} from 'react';
 import {Modal, ScrollView, StyleSheet, SafeAreaView, View} from 'react-native';
 import {launchCamera} from 'react-native-image-picker';
@@ -50,7 +51,7 @@ const DetailScreen = ({route, navigation}) => {
   const [returnPict, setReturnPict] = useState('');
   const [returnDisplayPict, setReturnDisplayPict] = useState('');
 
-  const [imageUri, setImageUri] = useState('');
+  // const [imageUri, setImageUri] = useState('');
   const bearerToken = token.value;
   useEffect(() => {
     if (bearerToken) {
@@ -443,6 +444,10 @@ const DetailScreen = ({route, navigation}) => {
   const imageProduct = `https://dashboard.bungadavi.brits-team.com/storage/${detail?.image_main_product}`;
   console.log(imageProduct);
 
+  const idLocale = require('moment/locale/id');
+  moment.locale('id', idLocale);
+  const date = moment(detail?.delivery_date).format('LL');
+
   return (
     <SafeAreaView style={styles?.mainContainer}>
       <Header headerTitle="Detail" headerSubtitle="Your task detail" />
@@ -459,7 +464,7 @@ const DetailScreen = ({route, navigation}) => {
           title="Transaction Detail"
           invoice={detail?.code_order_transaction}
           timeslot={detail?.time_slot_name}
-          date={detail?.delivery_date}
+          date={date}
           from={detail?.from_message_order}
           to={detail?.to_message_order}
         />
