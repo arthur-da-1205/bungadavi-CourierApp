@@ -465,8 +465,8 @@ const DetailScreen = ({route, navigation}) => {
           invoice={detail?.code_order_transaction}
           timeslot={detail?.time_slot_name}
           date={date}
-          from={detail?.from_message_order}
-          to={detail?.to_message_order}
+          from={detail?.sender_name}
+          to={detail?.receiver_name}
         />
         <Space height={16} />
         <RecepientDetailSection
