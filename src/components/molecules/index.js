@@ -9,6 +9,7 @@ import UploadPictModal from './UploadPictModal';
 import FinishModal from './FinishModal';
 import FinishUploadModal from './FinishUploadModal';
 import ReturnUploadModal from './ReturnUploadModal';
+import SummaryCard from './SummaryCard';
 
 export {
   BottomNavigator,
@@ -22,4 +23,5 @@ export {
   FinishModal,
   FinishUploadModal,
   ReturnUploadModal,
+  SummaryCard,
 };

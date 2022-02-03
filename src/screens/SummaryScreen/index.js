@@ -4,7 +4,7 @@ import {Picker} from '@react-native-picker/picker';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {OrderCard, Space} from '../../components';
+import {OrderCard, Space, SummaryCard} from '../../components';
 import {API_HOST} from '../../config';
 import {getData} from '../../utils/storage';
 import {ScrollView} from 'react-native-gesture-handler';
@@ -65,17 +65,12 @@ const SummaryScreen = () => {
         {data ? (
           data.map((item, index) => {
             return (
-              <OrderCard
+              <SummaryCard
                 key={index}
-                // productImg={{
-                //   uri: `https://dashboard.bungadavi.brits-team.com/storage/${item?.image_main_product}`,
-                // }}
                 orderInv={item.code_order_transaction}
                 address={item.address}
                 date={item.delivery_date}
                 timeSlot={item.time_slot_name}
-                statusTask={item.status_assignment}
-                // onDetail={() => navigation.navigate('DetailScreen', item)}
               />
             );
           })
@@ -94,7 +89,7 @@ const SummaryScreen = () => {
 export default SummaryScreen;
 
 const styles = StyleSheet.create({
-  mainContainer: {flex: 1, backgroundColor: 'white', padding: 10},
+  mainContainer: {flex: 1, padding: 10},
   filterContainer: {
     flex: 0.3,
     flexDirection: 'row',
