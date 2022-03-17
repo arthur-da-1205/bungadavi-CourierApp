@@ -114,8 +114,9 @@ const DetailScreen = ({route, navigation}) => {
       },
     })
       .then(res => {
+        console.log(bodyFormData);
         // dispatch({type: 'SET_STATUS', value: res.data.msg});
-        navigation.goBack('AssignOrderScreen');
+        // navigation.goBack('AssignOrderScreen');
       })
       .catch(err => {
         // console.log(err);
@@ -264,10 +265,10 @@ const DetailScreen = ({route, navigation}) => {
 
   const doReturn = () => {
     var bodyForm = new FormData();
-    bodyForm.append('status_assignment', 'Return');
+    bodyForm.append('status_assignment', 'Returned');
     bodyForm.append('delivery_number_assignment', delivery_number_assignment);
     bodyForm.append('courier_uuid', uuid);
-    bodyForm.append('status_order_trx', 'Return');
+    bodyForm.append('status_order_trx', 'Returned');
     bodyForm.append('img', returnPict);
 
     if (bearerToken) {

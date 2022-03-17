@@ -4,7 +4,7 @@ import {Picker} from '@react-native-picker/picker';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {OrderCard, Space, SummaryCard} from '../../components';
+import {Space, SummaryCard} from '../../components';
 import {API_HOST} from '../../config';
 import {getData} from '../../utils/storage';
 import {ScrollView} from 'react-native-gesture-handler';

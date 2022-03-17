@@ -44,7 +44,7 @@ OrderCard.propTypes = {
   statusTask: PropTypes.oneOf([
     'Assigned',
     'Accept',
-    'Rejected',
+    'Reject',
     'On Delivery',
     'Delivered',
     'Returned',

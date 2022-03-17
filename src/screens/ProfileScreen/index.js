@@ -28,19 +28,6 @@ const ProfileScreen = ({navigation}) => {
     getData('TOKEN').then(res => {
       setToken(res.token);
     });
-
-    // API_HOST.get('/get_images', {
-    //   params: {get_images: photo},
-    //   headers: {
-    //     Authorization: `Bearer ${token}`,
-    //   },
-    // })
-    //   .then(res => {
-    //     console.log(res);
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
   }, [photo, token]);
   console.log(photo);
 
